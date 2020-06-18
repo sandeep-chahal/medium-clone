@@ -3,10 +3,15 @@ const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();
 
+const authRoute = require("./routes/authRoutes");
+
 const app = express();
 
 //json parser
 app.use(express.json());
+
+// routes
+app.use(authRoute);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
@@ -17,7 +22,11 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose
-	.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+	.connect(process.env.MONGODB_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useCreateIndex: true,
+	})
 	.then(() => {
 		app.listen(process.env.PORT || 5000);
 	})
