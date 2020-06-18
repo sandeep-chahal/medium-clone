@@ -13,7 +13,7 @@ exports.postSignup = async (req, res, next) => {
 	const email = req.body.email;
 	const name = req.body.name;
 	const password = req.body.password;
-	const img = req.body.img;
+	const img = req.file.filename;
 
 	//encrypt password
 	const encryptedPassword = await User.encryptPassword(password);

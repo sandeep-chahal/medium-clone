@@ -1,17 +1,33 @@
 const { body, validationResult } = require("express-validator");
 
 const User = require("../models/user");
+const { deleteUserImages } = require("../utils/deleteImage");
 
 module.exports = {
 	validationErrorHandler: (req, res, next) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
+		let errors = [];
+
+		//getting errors from validator
+		const feildErrors = validationResult(req);
+		if (!feildErrors.isEmpty())
+			errors = feildErrors.array().map((error) => ({
+				msg: error.msg,
+				param: error.param,
+			}));
+
+		//getting image upload errors
+		if (req.fileErrors && req.fileErrors.length) {
+			errors = [...errors, ...req.fileErrors];
+		}
+
+		//delete uploaded images if error
+		if (!feildErrors.isEmpty() && req.file) deleteUserImages(req.file.filename);
+
+		if (errors.length) {
+			//sending errors if any
 			return res.status(422).json({
 				result: "error",
-				errors: errors.array().map((error) => ({
-					msg: error.msg,
-					param: error.param,
-				})),
+				errors: errors,
 			});
 		} else next();
 	},
@@ -20,7 +36,7 @@ module.exports = {
 			.trim()
 			.isEmail()
 			.isLength({ max: 50 })
-			.custom(async (val, { req }) => {
+			.custom(async (val) => {
 				if (await User.findOne({ email: val })) {
 					throw new Error("Email already Exist!");
 				} else return true;

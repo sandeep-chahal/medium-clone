@@ -5,8 +5,6 @@ const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true,
-		index: true,
 	},
 	img: {
 		type: String,
@@ -14,6 +12,8 @@ const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
+		unique: true,
+		index: true,
 	},
 	emailVerified: {
 		isVerfied: {
