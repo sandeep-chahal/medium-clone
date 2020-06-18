@@ -56,4 +56,10 @@ module.exports = {
 			"Confirm password Doesn't match"
 		).custom((val, { req }) => (val !== req.body.password ? false : true)),
 	],
+	loginValidation: [
+		body("email", "Invalid Credentials!").isEmail().normalizeEmail(),
+		body("password", "Invalid Credentials!")
+			.trim()
+			.isLength({ min: 6, max: 16 }),
+	],
 };

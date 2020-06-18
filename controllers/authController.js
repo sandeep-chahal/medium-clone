@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const { signupValidation } = require("../middlewares/validation");
 
 const createAndSendJWTToken = (id, res) => {
 	const token = jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1h" });
@@ -26,11 +27,28 @@ exports.postSignup = async (req, res, next) => {
 		img,
 	});
 
-	//craeting and sending jwt token
+	//creating and sending jwt token
 	createAndSendJWTToken(user._id, res);
 
 	// sending success response
 	res.status(201).json({
+		result: "success",
+	});
+};
+
+exports.postLogin = async (req, res, next) => {
+	const email = req.body.email;
+	const password = req.body.password;
+
+	const user = await User.findOne({ email });
+	if (!user || !(await User.isPasswordValid(password, user.password)))
+		return res.status(400).json({
+			result: "error",
+			errors: [{ msg: "Invalid Credentials!" }],
+		});
+
+	createAndSendJWTToken(user._id, res);
+	return res.status(200).json({
 		result: "success",
 	});
 };

@@ -40,5 +40,9 @@ userSchema.statics.encryptPassword = async (val) => {
 	const encrypted = await bcrypt.hash(val, 12);
 	return encrypted;
 };
+userSchema.statics.isPasswordValid = async (password, encPassword) => {
+	const isvalid = await bcrypt.compare(password, encPassword);
+	return isvalid;
+};
 
 module.exports = mongoose.model("User", userSchema);
