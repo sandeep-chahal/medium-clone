@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 
@@ -16,10 +17,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 mongoose
-	.connect(
-		process.env.MONGODB_URI || `mongodb://localhost:27017/medium-clone`,
-		{ useNewUrlParser: true }
-	)
+	.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 	.then(() => {
 		app.listen(process.env.PORT || 5000);
 	})
