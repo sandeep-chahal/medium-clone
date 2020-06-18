@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		unique: true,
+		index: true,
 	},
 	img: {
 		type: String,
@@ -19,7 +22,7 @@ const userSchema = new mongoose.Schema({
 		},
 		emailVerificationToken: {
 			type: String,
-			expires: date,
+			expires: Date,
 		},
 	},
 	password: {
@@ -32,5 +35,10 @@ const userSchema = new mongoose.Schema({
 		default: Date.now(),
 	},
 });
+
+userSchema.statics.encryptPassword = async (val) => {
+	const encrypted = await bcrypt.hash(val, 12);
+	return encrypted;
+};
 
 module.exports = mongoose.model("User", userSchema);
