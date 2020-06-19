@@ -138,4 +138,6 @@ module.exports = {
 			} else return true;
 		}),
 	],
+
+	prefrenceValidation: [body("prefrence", "Invalid Format").isArray()],
 };

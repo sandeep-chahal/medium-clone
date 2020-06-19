@@ -118,3 +118,10 @@ exports.unfollow = async (req, res, next) => {
 	}
 	res.json({ result: result ? "success" : "error" });
 };
+
+exports.setPrefrence = async (req, res, next) => {
+	req.user.prefrence = req.body.prefrence;
+	await req.user.save();
+
+	res.status(201).json({ result: "success" });
+};
