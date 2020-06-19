@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const authRoute = require("./routes/authRoutes");
 const userRoute = require("./routes/userRoutes");
+const storyRoute = require("./routes/storyRoute");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // routes
 app.use(authRoute);
 app.use(userRoute);
+app.use(storyRoute);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));

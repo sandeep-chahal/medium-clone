@@ -140,4 +140,11 @@ module.exports = {
 	],
 
 	prefrenceValidation: [body("prefrence", "Invalid Format").isArray()],
+
+	createStoryValidation: [
+		body("title", "title length must be between 5 and 50 character long!")
+			.trim()
+			.isLength({ min: 5, max: 50 }),
+		body("body", "story must have body!").isArray(),
+	],
 };
