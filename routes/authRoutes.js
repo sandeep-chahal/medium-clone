@@ -22,4 +22,7 @@ router.post(
 	authController.postLogin
 );
 
+router.post("/api/v1/forgotPassword", authController.forgotPassword);
+router.post("/api/v1/resetPassword", authController.resetPassoword);
+
 module.exports = router;

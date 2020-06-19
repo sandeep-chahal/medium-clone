@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
 	name: {
@@ -43,6 +44,10 @@ userSchema.statics.encryptPassword = async (val) => {
 userSchema.statics.isPasswordValid = async (password, encPassword) => {
 	const isvalid = await bcrypt.compare(password, encPassword);
 	return isvalid;
+};
+
+userSchema.statics.createPasswordResetToken = function () {
+	return crypto.randomBytes(32).toString("hex");
 };
 
 module.exports = mongoose.model("User", userSchema);
