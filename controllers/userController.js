@@ -1,11 +1,13 @@
 const User = require("../models/user");
 const sendMail = require("../utils/sendMail");
+const { deleteUserImages } = require("../utils/deleteImage");
 
 exports.sendVerificationMail = async (req, res, next) => {
 	// get user
-	const user = await User.findById(req.user._id).select("email emailVerified");
+	const user = req.user;
 
-	if (user.emailVerified.isVerfied)
+	// check if already verified
+	if (user.emailVerified && user.emailVerified.isVerfied)
 		return res.json({ result: "error", errors: [{ msg: "alredy verified!" }] });
 
 	let _token =
@@ -58,4 +60,23 @@ exports.verifyEmail = async (req, res, next) => {
 	await user.save();
 
 	res.send("Email Verifed!");
+};
+
+exports.updateProfilePic = async (req, res, next) => {
+	// get old profile pic
+	const oldImg = req.user.img;
+
+	// update profile pic
+	req.user.img = req.file.filename;
+	await req.user.save();
+
+	// delete old profile pic
+	deleteUserImages(oldImg);
+
+	res.status(201).json({
+		result: "success",
+		data: {
+			img: req.user.img,
+		},
+	});
 };

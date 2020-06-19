@@ -19,9 +19,17 @@ module.exports = {
 		if (req.fileErrors && req.fileErrors.length) {
 			errors = [...errors, ...req.fileErrors];
 		}
+		// something unexpected happened with img
+		if (!req.file || !req.file.filename) {
+			errors = [
+				...errors,
+				{ msg: "something unexpected happended!", param: "img" },
+			];
+		}
 
-		//delete uploaded images if error
-		if (!feildErrors.isEmpty() && req.file) deleteUserImages(req.file.filename);
+		if (!feildErrors.isEmpty() && req.file)
+			//delete uploaded images if error
+			deleteUserImages(req.file.filename);
 
 		if (errors.length) {
 			//sending errors if any

@@ -5,7 +5,6 @@ exports.deleteUserImages = (name) => {
 	try {
 		const filename60px = `${name}-60px.jpeg`;
 		const filename250px = `${name}-250px.jpeg`;
-		console.log(easyPath(`../public/uploads/${filename60px}`));
 		fs.unlink(easyPath(`../public/uploads/${filename60px}`), () => {});
 		fs.unlink(easyPath(`../public/uploads/${filename250px}`), () => {});
 	} catch (err) {
