@@ -35,6 +35,8 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now(),
 	},
+	following: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+	follower: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 });
 
 userSchema.statics.encryptPassword = async (val) => {

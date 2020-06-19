@@ -80,3 +80,41 @@ exports.updateProfilePic = async (req, res, next) => {
 		},
 	});
 };
+
+exports.follow = async (req, res, next) => {
+	const user = req.user;
+	const userToFollow = req.body.id;
+
+	const result = await User.findOneAndUpdate(
+		{
+			_id: user._id,
+			following: { $nin: userToFollow },
+		},
+		{ $push: { following: userToFollow } }
+	).select("_id");
+	if (result) {
+		await User.findByIdAndUpdate(userToFollow, {
+			$push: { follower: user._id },
+		});
+	}
+
+	res.json({ result: result ? "success" : "error" });
+};
+exports.unfollow = async (req, res, next) => {
+	const user = req.user;
+	const userToUnfollow = req.body.id;
+
+	const result = await User.findOneAndUpdate(
+		{
+			_id: user._id,
+			following: { $in: userToUnfollow },
+		},
+		{ $pull: { following: userToUnfollow } }
+	).select("_id");
+	if (result) {
+		await User.findByIdAndUpdate(userToUnfollow, {
+			$pull: { follower: user._id },
+		});
+	}
+	res.json({ result: result ? "success" : "error" });
+};

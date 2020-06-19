@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 
 const User = require("../models/user");
@@ -18,13 +19,6 @@ module.exports = {
 		//getting image upload errors
 		if (req.fileErrors && req.fileErrors.length) {
 			errors = [...errors, ...req.fileErrors];
-		}
-		// something unexpected happened with img
-		if (!req.file || !req.file.filename) {
-			errors = [
-				...errors,
-				{ msg: "something unexpected happended!", param: "img" },
-			];
 		}
 
 		if (!feildErrors.isEmpty() && req.file)
@@ -126,5 +120,22 @@ module.exports = {
 			"confirmPassword",
 			"Confirm password Doesn't match"
 		).custom((val, { req }) => (val !== req.body.password ? false : true)),
+	],
+	followValidation: [
+		body("id").custom(async (val) => {
+			if (
+				!mongoose.Types.ObjectId.isValid(val) ||
+				!(await User.findById(val).select("_id"))
+			) {
+				throw new Error("Invalid User Id!");
+			} else return true;
+		}),
+	],
+	unfollowValidation: [
+		body("id").custom((val) => {
+			if (!mongoose.Types.ObjectId.isValid(val)) {
+				throw new Error("Invalid User Id!");
+			} else return true;
+		}),
 	],
 };
