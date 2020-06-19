@@ -56,27 +56,18 @@ exports.postLogin = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
 	const email = req.body.email;
 
-	//check if user exist!
-	const user = await User.findOne({ email });
-	if (!user)
-		return res.status(400).json({
-			result: "error",
-			errors: [{ msg: "Cannot find account on this email!" }],
-		});
+	//get user
+	const user = req.user;
 
-	let resetToken = null;
+	// get resetToken from req(injected from validator)
+	let resetToken = req.resetToken;
+	// create a  link to send in email
 	let link = `${req.protocol}://${req.get(
 		"host"
 	)}/resetPassoword?email=${email}&token=`;
 
-	//get token if already in db and not expires, if not then create new token
-	if (
-		user.passwordResetToken &&
-		user.passwordResetToken.token &&
-		user.passwordResetToken.expires > Date.now()
-	) {
-		resetToken = user.passwordResetToken.token;
-	} else {
+	// create new token, if not available
+	if (!resetToken) {
 		resetToken = User.createPasswordResetToken();
 
 		user.passwordResetToken = {
@@ -89,38 +80,23 @@ exports.forgotPassword = async (req, res, next) => {
 	//send mail
 	link += resetToken;
 	const result = await sendMail(email, "pwd", link);
+
 	return res.json({
 		result: result ? "success" : "error",
 	});
 };
 
 exports.resetPassoword = async (req, res, next) => {
-	const email = req.body.email;
-	const token = req.body.token;
+	const user = req.user;
 	const password = req.body.password;
 
-	const user = await User.findOne({ email });
-
-	// if no user with email then send error
-	if (!user)
-		return res.json({ result: "error", errors: ["No account found!"] });
-
-	// if user does not have resetToken or it's expires
-	if (
-		!user.passwordResetToken ||
-		!user.passwordResetToken.token === token ||
-		!user.passwordResetToken.expires > Date.now()
-	) {
-		return res
-			.status(400)
-			.json({ result: "error", errors: ["Token Expired!"] });
-	}
-
-	// else change the password and lastChangedPassword
+	// change password and save
 	user.password = await User.encryptPassword(password);
 	user.lastChangedPassword = Date.now();
+	user.passwordResetToken = null;
 	await user.save();
 
+	// create and send jwt token
 	createAndSendJWTToken(user._id, res);
 
 	res.status(201).json({
