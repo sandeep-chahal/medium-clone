@@ -1,12 +1,14 @@
-exports.fotgotPassoword = (link) => {
+module.exports = fotgotPassoword = (type, link) => {
 	return `
     <!doctype html>
     <html lang="en-US">
     
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <title>Reset Password Email Template</title>
-        <meta name="description" content="Reset Password Email Template.">
+        <title>${type === "pwd" ? "Reset Password" : "Verify Email"}</title>
+        <meta name="description" content="${
+					type === "pwd" ? "Reset Password" : "Verify Email"
+				}">
         <style type="text/css">
             a:hover {text-decoration: underline !important;}
         </style>
@@ -40,17 +42,27 @@ exports.fotgotPassoword = (link) => {
                                     </tr>
                                     <tr>
                                         <td style="padding:0 35px;">
-                                            <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">You have
-                                                requested to reset your password</h1>
+                                            <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">${
+																							type === "pwd"
+																								? "You have requested to reset your password!"
+																								: "Verify Your Email!"
+																						}</h1>
                                             <span
                                                 style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                                Forgot your password? don't worry. Just click on the link below to reset your password.
-                                                The link is only valid for 10 minutes.
+                                            ${
+																							type === "pwd"
+																								? "Forgot your password? don't worry. Just click on the link below to reset your password.The link is only valid for 10 minutes."
+																								: " Click on the link below to verify your email and get extra benefits.It's only valid for 10 minutes."
+																						}   
+                                            
                                             </p>
                                             <a href="${link}"
-                                                style="background:#333;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset
-                                                Password</a>
+                                                style="background:#333;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">${
+																									type === "pwd"
+																										? "Reset Password"
+																										: "Verify"
+																								}</a>
                                         </td>
                                     </tr>
                                     <tr>

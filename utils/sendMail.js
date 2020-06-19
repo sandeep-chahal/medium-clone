@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const { fotgotPassoword } = require("./emailTemplate");
+const emailTemplate = require("./emailTemplate");
 
 module.exports = async (to, type, link) => {
 	const msg = {
@@ -10,7 +10,7 @@ module.exports = async (to, type, link) => {
 		subject: `${
 			type == "pwd" ? "Reset password" : "Email verifiction"
 		} for medium clone!`,
-		html: fotgotPassoword(link),
+		html: emailTemplate(type, link),
 	};
 
 	try {

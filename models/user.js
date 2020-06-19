@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema({
 			type: Boolean,
 			default: false,
 		},
-		emailVerificationToken: {
-			type: String,
+		token: {
+			value: String,
 			expires: Date,
 		},
 	},
@@ -46,7 +46,7 @@ userSchema.statics.isPasswordValid = async (password, encPassword) => {
 	return isvalid;
 };
 
-userSchema.statics.createPasswordResetToken = function () {
+userSchema.statics.createToken = function () {
 	return crypto.randomBytes(32).toString("hex");
 };
 

@@ -1,0 +1,61 @@
+const User = require("../models/user");
+const sendMail = require("../utils/sendMail");
+
+exports.sendVerificationMail = async (req, res, next) => {
+	// get user
+	const user = await User.findById(req.user._id).select("email emailVerified");
+
+	if (user.emailVerified.isVerfied)
+		return res.json({ result: "error", errors: [{ msg: "alredy verified!" }] });
+
+	let _token =
+		user.emailVerified &&
+		user.emailVerified.token &&
+		user.emailVerified.token.value &&
+		user.emailVerified.expires > Date.now() &&
+		user.emailVerified.token.value;
+
+	// generate and saving  a verification token
+	let token = _token || (await User.createToken());
+	user.emailVerified = {
+		isVerfied: false,
+		token: {
+			value: token,
+			expires: Date.now() + 1000 * 60 * 10,
+		},
+	};
+	await user.save();
+
+	// create link
+	let link = `${req.protocol}://${req.get("host")}/api/v1/verifyEmail?email=${
+		user.email
+	}&token=${token}`;
+
+	// send e-mail
+	const result = await sendMail(user.email, "e-verify", link);
+
+	return res.json({
+		result: result ? "success" : "error",
+	});
+};
+
+exports.verifyEmail = async (req, res, next) => {
+	const email = req.query.email;
+	const token = req.query.token;
+
+	const user = await User.findOne({
+		email,
+		"emailVerified.token.value": token,
+		"emailVerified.token.expires": { $gt: Date.now() },
+	}).select("emailVerified");
+
+	if (!user) return res.send("Token Expired!");
+
+	user.emailVerified = {
+		isVerfied: true,
+		token: null,
+	};
+	await user.save();
+
+	res.send("Email Verifed!");
+};

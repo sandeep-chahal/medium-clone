@@ -68,7 +68,7 @@ exports.forgotPassword = async (req, res, next) => {
 
 	// create new token, if not available
 	if (!resetToken) {
-		resetToken = User.createPasswordResetToken();
+		resetToken = User.createToken();
 
 		user.passwordResetToken = {
 			token: resetToken,

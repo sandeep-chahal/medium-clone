@@ -1,17 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+var cookieParser = require("cookie-parser");
+
 require("dotenv").config();
 
 const authRoute = require("./routes/authRoutes");
+const userRoute = require("./routes/userRoutes");
 
 const app = express();
 
 //json parser
 app.use(express.json());
 
+// cookie parser
+app.use(cookieParser());
+
 // routes
 app.use(authRoute);
+app.use(userRoute);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
