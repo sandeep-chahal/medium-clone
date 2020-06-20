@@ -144,7 +144,7 @@ module.exports = {
 		}),
 	],
 
-	prefrenceValidation: [body("prefrence", "Invalid Format").isArray()],
+	interestsValidation: [body("interests", "Invalid Format").isArray()],
 
 	createStoryValidation: [
 		body("title", "title length must be between 5 and 50 character long!")

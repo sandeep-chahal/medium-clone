@@ -6,7 +6,7 @@ const {
 	validationErrorHandler,
 	followValidation,
 	unfollowValidation,
-	prefrenceValidation,
+	interestsValidation,
 } = require("../middlewares/validation");
 
 router.get(
@@ -39,11 +39,11 @@ router.post(
 );
 
 router.post(
-	"/api/v1/setPrefrence",
-	prefrenceValidation,
+	"/api/v1/customizeInterests",
+	interestsValidation,
 	validationErrorHandler,
-	authentication("prefrence"),
-	userController.setPrefrence
+	authentication("interests"),
+	userController.customizeInterests
 );
 
 module.exports = router;

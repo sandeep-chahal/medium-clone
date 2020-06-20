@@ -1,6 +1,8 @@
 const Story = require("../models/story");
 const User = require("../models/user");
+const { findById } = require("../models/story");
 
+// -------------setters---------------------
 exports.createStory = async (req, res, next) => {
 	// get data
 	const title = req.body.title;
@@ -8,8 +10,6 @@ exports.createStory = async (req, res, next) => {
 	const tags = req.body.tags;
 	const author = req.user._id;
 	const img = req.filename;
-
-	console.log({ title, body, img, tags, author });
 
 	// create story
 	const story = await Story.create({ title, body, img, tags, author });
@@ -103,4 +103,33 @@ exports.removeBookmark = async (req, res, next) => {
 			bookmark: storyId,
 		},
 	});
+};
+
+// ----------getters-------------------
+exports.getStories = async (req, res, next) => {
+	const intersets = req.user.interests;
+	const following = req.user.following;
+	const skip = req.query.skip || 0;
+	const limit = req.query.limit || 10;
+
+	const stories = await Story.find({
+		$or: [
+			{
+				tags: {
+					$elemMatch: { $in: intersets },
+				},
+			},
+			{
+				author: {
+					$in: following,
+				},
+			},
+		],
+	})
+		.skip(skip)
+		.limit(limit)
+		.populate("author", "img name _id")
+		.lean(true);
+
+	res.json({ result: "success", data: { stories, results: stories.length } });
 };

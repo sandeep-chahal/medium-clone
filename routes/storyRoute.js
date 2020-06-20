@@ -47,4 +47,10 @@ router.post(
 	storyController.removeBookmark
 );
 
+router.get(
+	"/api/v1/stories",
+	authentication("_id interests following"),
+	storyController.getStories
+);
+
 module.exports = router;

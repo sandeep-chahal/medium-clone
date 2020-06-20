@@ -4,10 +4,14 @@ const storySchema = new mongoose.Schema({
 	title: String,
 	body: Array,
 	img: String,
-	tags: [String],
+	tags: {
+		type: [String],
+		index: true,
+	},
 	author: {
 		type: mongoose.Types.ObjectId,
 		ref: "User",
+		index: true,
 	},
 	createdAt: {
 		type: Date,

@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	prefrence: [String],
+	interests: [String],
 	passwordResetToken: { token: String, expires: Date },
 	lastChangedPassword: {
 		type: Date,
