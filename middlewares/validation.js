@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 
 const User = require("../models/user");
-const { deleteUserImages } = require("../utils/deleteImage");
+const { deleteUserImages, deleteStoryImages } = require("../utils/deleteImage");
 
 module.exports = {
 	validationErrorHandler: (req, res, next) => {
@@ -21,9 +21,14 @@ module.exports = {
 			errors = [...errors, ...req.fileErrors];
 		}
 
-		if (!feildErrors.isEmpty() && req.file)
-			//delete uploaded images if error
-			deleteUserImages(req.file.filename);
+		//delete uploaded images if error
+		if (!feildErrors.isEmpty() && (req.file || req.filename)) {
+			if (req.file) deleteUserImages(req.file.filename);
+			else if (req.filename) {
+				console.log(req.filename);
+				deleteStoryImages(req.filename);
+			}
+		}
 
 		if (errors.length) {
 			//sending errors if any
@@ -144,7 +149,19 @@ module.exports = {
 	createStoryValidation: [
 		body("title", "title length must be between 5 and 50 character long!")
 			.trim()
-			.isLength({ min: 5, max: 50 }),
+			.isLength({ min: 5, max: 50 })
+			.custom((val) => {
+				console.log(val);
+			}),
 		body("body", "story must have body!").isArray(),
+	],
+
+	deleteStoryValidation: [
+		body("id").custom((val) => {
+			if (!mongoose.Types.ObjectId.isValid(val)) {
+				throw new Error("Story id is not valid!");
+			}
+			return true;
+		}),
 	],
 };

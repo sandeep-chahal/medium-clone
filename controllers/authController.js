@@ -40,7 +40,10 @@ exports.postLogin = async (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
+	console.log(email);
+
 	const user = await User.findOne({ email });
+	console.log(user);
 	if (!user || !(await User.isPasswordValid(password, user.password)))
 		return res.status(400).json({
 			result: "error",
