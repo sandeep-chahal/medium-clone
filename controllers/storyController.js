@@ -131,7 +131,7 @@ exports.getStories = async (req, res, next) => {
 		.populate("author", "img name _id")
 		.lean(true);
 
-	res.json({ result: "success", data: { stories, results: stories.length } });
+	res.json({ result: "success", data: { stories, length: stories.length } });
 };
 
 exports.getStory = async (req, res, next) => {
@@ -143,6 +143,22 @@ exports.getStory = async (req, res, next) => {
 		result: "success",
 		data: {
 			story,
+		},
+	});
+};
+
+exports.getStoryClappers = async (req, res, next) => {
+	const storyId = req.query.id;
+
+	const story = await Story.findById(storyId)
+		.select("claps")
+		.populate("claps", "name img");
+
+	res.json({
+		result: "success",
+		data: {
+			clappers: story ? story.claps : null,
+			length: story ? story.claps.length : 0,
 		},
 	});
 };

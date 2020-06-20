@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { body, validationResult } = require("express-validator");
+const { check, body, validationResult } = require("express-validator");
 
 const User = require("../models/user");
 const { deleteUserImages, deleteStoryImages } = require("../utils/deleteImage");
@@ -157,7 +157,7 @@ module.exports = {
 	],
 
 	storyIdValidation: [
-		body("id").custom((val) => {
+		check("id").custom((val) => {
 			if (!mongoose.Types.ObjectId.isValid(val)) {
 				throw new Error("Story id is not valid!");
 			}

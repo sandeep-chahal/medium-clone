@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const storyController = require("../controllers/storyController");
 const authentication = require("../middlewares/authentication");
-const { uploadImages, uploadNone } = require("../middlewares/imageupload");
+const { uploadImages } = require("../middlewares/imageupload");
 const {
 	validationErrorHandler,
 	createStoryValidation,
@@ -49,9 +49,18 @@ router.post(
 
 router.get(
 	"/api/v1/stories",
+	storyIdValidation,
+	validationErrorHandler,
 	authentication("_id interests following"),
 	storyController.getStories
 );
 router.get("/api/v1/story", authentication("_id"), storyController.getStory);
+router.get(
+	"/api/v1/getStoryClappers",
+	storyIdValidation,
+	validationErrorHandler,
+	authentication("_id"),
+	storyController.getStoryClappers
+);
 
 module.exports = router;
