@@ -83,3 +83,24 @@ exports.clap = async (req, res, next) => {
 
 	res.json({ result: "success" });
 };
+
+exports.bookmark = async (req, res, next) => {
+	const storyId = req.body.id;
+	const userId = req.user._id;
+
+	await User.findByIdAndUpdate(userId, {
+		$push: {
+			bookmark: storyId,
+		},
+	});
+};
+exports.removeBookmark = async (req, res, next) => {
+	const storyId = req.body.id;
+	const userId = req.user._id;
+
+	await User.findByIdAndUpdate(userId, {
+		$pull: {
+			bookmark: storyId,
+		},
+	});
+};

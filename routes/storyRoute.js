@@ -32,5 +32,19 @@ router.post(
 	validationErrorHandler,
 	storyController.clap
 );
+router.post(
+	"/api/v1/bookmark",
+	authentication("_id"),
+	storyIdValidation,
+	validationErrorHandler,
+	storyController.bookmark
+);
+router.post(
+	"/api/v1/removeBookmark",
+	authentication("_id"),
+	storyIdValidation,
+	validationErrorHandler,
+	storyController.removeBookmark
+);
 
 module.exports = router;
