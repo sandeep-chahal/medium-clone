@@ -52,29 +52,34 @@ exports.clap = async (req, res, next) => {
 	}).select("_id");
 
 	// if already clapped then remove clap else clap
-	if (clapped) {
-		await Story.findByIdAndUpdate(storyId, {
-			$pull: {
-				claps: userId,
-			},
-		});
-		await User.findByIdAndUpdate(userId, {
-			$pull: {
-				claps: storyId,
-			},
-		});
-	} else {
-		await Story.findByIdAndUpdate(storyId, {
-			$push: {
-				claps: userId,
-			},
-		});
-		await User.findByIdAndUpdate(userId, {
-			$push: {
-				claps: storyId,
-			},
-		});
-	}
+	await Story.findByIdAndUpdate(
+		storyId,
+		clapped
+			? {
+					$pull: {
+						claps: userId,
+					},
+			  }
+			: {
+					$push: {
+						claps: userId,
+					},
+			  }
+	);
+	await User.findByIdAndUpdate(
+		userId,
+		clapped
+			? {
+					$pull: {
+						claps: storyId,
+					},
+			  }
+			: {
+					$push: {
+						claps: storyId,
+					},
+			  }
+	);
 
 	res.json({ result: "success" });
 };
