@@ -20,23 +20,23 @@ router.post(
 );
 router.post(
 	"/api/v1/deleteStory",
-	authentication("_id"),
 	storyIdValidation,
 	validationErrorHandler,
+	authentication("_id"),
 	storyController.deleteStory
 );
 router.post(
 	"/api/v1/clap",
-	authentication("_id"),
 	storyIdValidation,
 	validationErrorHandler,
+	authentication("_id"),
 	storyController.clap
 );
 router.post(
 	"/api/v1/bookmark",
-	authentication("_id"),
 	storyIdValidation,
 	validationErrorHandler,
+	authentication("_id"),
 	storyController.bookmark
 );
 router.post(
@@ -49,7 +49,6 @@ router.post(
 
 router.get(
 	"/api/v1/stories",
-	storyIdValidation,
 	validationErrorHandler,
 	authentication("_id interests following"),
 	storyController.getStories
@@ -66,8 +65,13 @@ router.get(
 	"/api/v1/getUserStories",
 	storyIdValidation,
 	validationErrorHandler,
-	// authentication("_id"),
+	authentication("_id"),
 	storyController.getUserStories
+);
+router.get(
+	"/api/v1/getBookmark",
+	authentication("_id"),
+	storyController.getBookmark
 );
 
 module.exports = router;

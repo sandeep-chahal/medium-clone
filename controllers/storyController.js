@@ -93,6 +93,10 @@ exports.bookmark = async (req, res, next) => {
 			bookmark: storyId,
 		},
 	});
+
+	res.json({
+		result: "success",
+	});
 };
 exports.removeBookmark = async (req, res, next) => {
 	const storyId = req.body.id;
@@ -181,6 +185,22 @@ exports.getUserStories = async (req, res, next) => {
 			user: { _id: user._id, name: user.name, img: user.img },
 			stories: user.stories,
 			length: user.stories.length,
+		},
+	});
+};
+
+exports.getBookmark = async (req, res, next) => {
+	const userId = req.user.id;
+
+	const user = await User.findById(userId)
+		.select("bookmark name img")
+		.populate("bookmark");
+
+	res.json({
+		result: "success",
+		data: {
+			stories: user.bookmark,
+			length: user.bookmark.length,
 		},
 	});
 };
