@@ -52,5 +52,6 @@ router.get(
 	authentication("_id interests following"),
 	storyController.getStories
 );
+router.get("/api/v1/story", authentication("_id"), storyController.getStory);
 
 module.exports = router;

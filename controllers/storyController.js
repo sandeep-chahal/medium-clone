@@ -133,3 +133,16 @@ exports.getStories = async (req, res, next) => {
 
 	res.json({ result: "success", data: { stories, results: stories.length } });
 };
+
+exports.getStory = async (req, res, next) => {
+	const storyId = req.query.id;
+
+	const story = await Story.findById(storyId);
+
+	res.json({
+		result: "success",
+		data: {
+			story,
+		},
+	});
+};
