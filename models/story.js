@@ -13,6 +13,7 @@ const storySchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now(),
 	},
+	claps: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 });
 
 module.exports = mongoose.model("Story", storySchema);

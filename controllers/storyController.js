@@ -23,17 +23,58 @@ exports.createStory = async (req, res, next) => {
 };
 
 exports.deleteStory = async (req, res, next) => {
-	const id = req.body.id;
+	const storyId = req.body.id;
+	const userId = req.user._id;
 
 	// deleteing from story model
-	await Story.findByIdAndRemove(id);
+	await Story.findByIdAndRemove(storyId);
 
 	// deleteing from user model
-	await User.findByIdAndUpdate(req.user._id, {
-		$pull: { stories: id },
+	await User.findByIdAndUpdate(userId, {
+		$pull: { stories: storyId },
 	});
-	console.log("-----------");
+
 	res.json({
 		result: "success",
 	});
+};
+
+exports.clap = async (req, res, next) => {
+	const storyId = req.body.id;
+	const userId = req.user._id;
+
+	// check if already clapped
+	const clapped = await Story.findOne({
+		_id: storyId,
+		claps: {
+			$in: userId,
+		},
+	}).select("_id");
+
+	// if already clapped then remove clap else clap
+	if (clapped) {
+		await Story.findByIdAndUpdate(storyId, {
+			$pull: {
+				claps: userId,
+			},
+		});
+		await User.findByIdAndUpdate(userId, {
+			$pull: {
+				claps: storyId,
+			},
+		});
+	} else {
+		await Story.findByIdAndUpdate(storyId, {
+			$push: {
+				claps: userId,
+			},
+		});
+		await User.findByIdAndUpdate(userId, {
+			$push: {
+				claps: storyId,
+			},
+		});
+	}
+
+	res.json({ result: "success" });
 };

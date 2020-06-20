@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
 	following: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 	follower: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 	stories: [{ type: mongoose.Types.ObjectId, ref: "Story" }],
+	claps: [{ type: mongoose.Types.ObjectId, ref: "Story" }],
 });
 
 userSchema.statics.encryptPassword = async (val) => {

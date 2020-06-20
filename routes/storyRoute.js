@@ -6,7 +6,7 @@ const { uploadImages, uploadNone } = require("../middlewares/imageupload");
 const {
 	validationErrorHandler,
 	createStoryValidation,
-	deleteStoryValidation,
+	storyIdValidation,
 } = require("../middlewares/validation");
 
 router.post(
@@ -21,9 +21,16 @@ router.post(
 router.post(
 	"/api/v1/deleteStory",
 	authentication("_id"),
-	deleteStoryValidation,
+	storyIdValidation,
 	validationErrorHandler,
 	storyController.deleteStory
+);
+router.post(
+	"/api/v1/clap",
+	authentication("_id"),
+	storyIdValidation,
+	validationErrorHandler,
+	storyController.clap
 );
 
 module.exports = router;

@@ -156,7 +156,7 @@ module.exports = {
 		body("body", "story must have body!").isArray(),
 	],
 
-	deleteStoryValidation: [
+	storyIdValidation: [
 		body("id").custom((val) => {
 			if (!mongoose.Types.ObjectId.isValid(val)) {
 				throw new Error("Story id is not valid!");
