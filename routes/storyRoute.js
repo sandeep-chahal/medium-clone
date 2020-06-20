@@ -62,5 +62,12 @@ router.get(
 	authentication("_id"),
 	storyController.getStoryClappers
 );
+router.get(
+	"/api/v1/getUserStories",
+	storyIdValidation,
+	validationErrorHandler,
+	// authentication("_id"),
+	storyController.getUserStories
+);
 
 module.exports = router;

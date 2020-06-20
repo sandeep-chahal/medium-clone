@@ -162,3 +162,25 @@ exports.getStoryClappers = async (req, res, next) => {
 		},
 	});
 };
+exports.getUserStories = async (req, res, next) => {
+	const userId = req.query.id;
+
+	const user = await User.findById(userId)
+		.select("stories name img")
+		.populate("stories");
+
+	if (!user)
+		return res.json({
+			result: "error",
+			errors: [{ msg: "No user found" }],
+		});
+
+	res.json({
+		result: "success",
+		data: {
+			user: { _id: user._id, name: user.name, img: user.img },
+			stories: user.stories,
+			length: user.stories.length,
+		},
+	});
+};
