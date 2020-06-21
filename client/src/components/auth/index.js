@@ -5,6 +5,7 @@ import { useTransition, animated, useSpring } from "react-spring";
 
 import Signup from "./signup";
 import Login from "./login";
+import ForgotPassword from "./forgotPassword";
 
 const Auth = () => {
 	const location = useLocation();
@@ -48,6 +49,10 @@ const Auth = () => {
 										<Switch location={item}>
 											<Route path="/auth/login" component={Login} />
 											<Route path="/auth/signup" component={Signup} />
+											<Route
+												path="/auth/forgotPassword"
+												component={ForgotPassword}
+											/>
 											<Redirect to="/auth/login" />
 										</Switch>
 									</animated.div>

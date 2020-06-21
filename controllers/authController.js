@@ -80,6 +80,7 @@ exports.forgotPassword = async (req, res, next) => {
 	//send mail
 	link += resetToken;
 	const result = await sendMail(email, "pwd", link);
+	console.log(link);
 
 	return res.json({
 		result: result ? "success" : "error",
