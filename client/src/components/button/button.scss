@@ -1,0 +1,33 @@
+.button-animated {
+	width: 10rem;
+	height: 3rem;
+	margin: 1rem;
+	background-color: #333;
+	font-size: 1.6rem;
+	position: relative;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+	cursor: pointer;
+	overflow: hidden;
+
+	.text::selection {
+		color: #fff;
+		background-color: transparent;
+	}
+}
+
+loader,
+.loader:before,
+.loader:after {
+	border-radius: 50%;
+	width: 2.5em;
+	height: 2.5em;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation: load7 1.8s infinite ease-in-out;
+	animation: load7 1.8s infinite ease-in-out;
+}
