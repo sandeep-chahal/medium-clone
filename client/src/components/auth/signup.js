@@ -5,6 +5,7 @@ import Button from "../button/Button";
 
 const Signup = () => {
 	const [loading, setLoading] = useState(false);
+	const [errors, setErrors] = useState([]);
 
 	return (
 		<div className="form">
@@ -12,10 +13,25 @@ const Signup = () => {
 			<div className="input-wrapper">
 				<label htmlFor="file"></label>
 				<input type="file" id="file" />
+				<span className={`${errors.length ? "" : "hide"} " error"`}>
+					Invalid Password
+				</span>
 				<input type="text" placeholder="Name" />
+				<span className={`${errors.length ? "" : "hide"} " error"`}>
+					Invalid Password
+				</span>
 				<input type="email" placeholder="Email" />
+				<span className={`${errors.length ? "" : "hide"} " error"`}>
+					Invalid Password
+				</span>
 				<input type="password" placeholder="Password" />
+				<span className={`${errors.length ? "" : "hide"} " error"`}>
+					Invalid Password
+				</span>
 				<input type="password" placeholder="Confirm Password" />
+				<span className={`${errors.length ? "" : "hide"} " error"`}>
+					Invalid Password
+				</span>
 				<Button
 					loading={loading}
 					text="Gooo!"

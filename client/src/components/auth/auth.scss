@@ -22,7 +22,7 @@
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 			width: 55%;
 			margin: auto;
-			height: 70vh;
+			height: 80vh;
 
 			.welcome {
 				overflow: hidden;
@@ -82,19 +82,28 @@
 				display: none;
 			}
 			input {
-				margin: 0.5rem 0;
+				// margin: 1rem 0;
 				padding: 0.35rem;
 				border: none;
 			}
 
+			.error {
+				padding: 0.1rem;
+				// margin-bottom: 1rem;
+				font-size: 1.2rem;
+				color: #fa8072;
+			}
+			.hide {
+				opacity: 0;
+			}
+
 			label {
-				margin-bottom: 2rem;
 				width: 10rem;
 				height: 10rem;
 				background: url(../../assets/img/medium.png);
 				background-position: center;
 				background-size: cover;
-
+				cursor: pointer;
 				border-radius: 50%;
 			}
 		}
