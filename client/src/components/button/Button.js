@@ -10,7 +10,7 @@ const Button = (props) => {
 	});
 
 	return (
-		<div className="button-animated" onClick={props.onClick}>
+		<button tyoe="submit" className="button-animated">
 			{transitions.map(({ item, key, props }) =>
 				item ? (
 					<animated.div className="text" style={props} key={key}>
@@ -22,7 +22,7 @@ const Button = (props) => {
 					</animated.div>
 				)
 			)}
-		</div>
+		</button>
 	);
 };
 

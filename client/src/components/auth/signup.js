@@ -14,11 +14,11 @@ const Signup = () => {
 				<label htmlFor="file"></label>
 				<input type="file" id="file" />
 				<span className={`${errors.length ? "" : "hide"} " error"`}>
-					Invalid Password
+					{errors.filter((error) => error.param === "img")}
 				</span>
 				<input type="text" placeholder="Name" />
 				<span className={`${errors.length ? "" : "hide"} " error"`}>
-					Invalid Password
+					{errors.filter((error) => error.param === "name")}!
 				</span>
 				<input type="email" placeholder="Email" />
 				<span className={`${errors.length ? "" : "hide"} " error"`}>
