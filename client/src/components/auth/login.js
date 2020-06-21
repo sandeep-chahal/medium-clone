@@ -7,14 +7,12 @@ import Button from "../button/Button";
 
 const Login = () => {
 	const [loading, setLoading] = useState(false);
-	const [authError, setAuthError] = useState("");
 	const history = useHistory();
-	const { register, handleSubmit, watch, errors } = useForm();
+	const { register, handleSubmit, watch, errors, setError } = useForm();
 
 	// login
 	const onSubmit = (data) => {
 		if (loading) return;
-		setAuthError("");
 		setLoading(true);
 		axios
 			.post(`/api/v1/login`, data)
@@ -23,7 +21,7 @@ const Login = () => {
 			})
 			.catch((err) => {
 				if (err.response && err.response.status >= 400)
-					setAuthError("Invalid Credential");
+					setError("email", null, "Invalid Credential");
 				setLoading(false);
 			});
 	};
@@ -45,12 +43,13 @@ const Login = () => {
 					type="password"
 					name="password"
 					placeholder="Password"
-					ref={register({ required: true, minLength: 6 })}
+					ref={register({
+						required: "Invalid Password",
+						minLength: 6,
+					})}
 				/>
 				<span
-					className={`${
-						errors.password || errors.email || authError ? "" : "hide"
-					} error`}
+					className={`${errors.password || errors.email ? "" : "hide"} error`}
 				>
 					Invalid Credential!
 				</span>
