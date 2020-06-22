@@ -19,7 +19,6 @@ const Input = ({ name, type, reg, error, watch }) => (
 );
 
 const validate = (validate, watch) => {
-	console.log(validate);
 	switch (validate) {
 		case "password":
 			return {

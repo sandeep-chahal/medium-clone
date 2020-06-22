@@ -44,7 +44,7 @@ exports.postLogin = async (req, res, next) => {
 	if (!user || !(await User.isPasswordValid(password, user.password)))
 		return res.status(400).json({
 			result: "error",
-			errors: [{ msg: "Invalid Credentials!" }],
+			errors: [{ msg: "Invalid Credentials!", param: "auth" }],
 		});
 
 	createAndSendJWTToken(user._id, res);

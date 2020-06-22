@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 
+import submit from "./submit";
 import Input from "./input";
 import Button from "../button/Button";
 
@@ -14,22 +14,13 @@ const Login = () => {
 
 	const onSubmit = (data) => {
 		if (loading) return;
-		setLoading(true);
-		axios
-			.post(`/api/v1/forgotPassword`, data)
-			.then((res) => {
-				if (res.data.result === "success") setSent(true);
-			})
-			.catch((err) => {
-				// get errors
-				const errors = err.response.data && err.response.data.errors;
-				// if server responded with errors
-				if (errors)
-					errors.map((error) => setError(error.param, null, error.msg));
-				// if not
-				else setError("connection", null, "Something Went Wrong!");
-				setLoading(false);
-			});
+		submit({
+			data,
+			endpoint: "forgotPassword",
+			setError,
+			setLoading,
+			success: () => setSent(true),
+		});
 	};
 
 	return (
