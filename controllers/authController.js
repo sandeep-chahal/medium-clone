@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const sendMail = require("../utils/sendMail");
+const { renderSync } = require("node-sass");
 
 const createAndSendJWTToken = (id, res) => {
 	const token = jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 	res.cookie("jwtToken", token, {
 		maxAge: 1000 * 60 * 60,
+		httpOnly: true,
 	});
 };
 
@@ -103,4 +105,8 @@ exports.resetPassoword = async (req, res, next) => {
 	res.status(201).json({
 		result: "success",
 	});
+};
+
+exports.getUser = async (req, res, next) => {
+	res.json({ user: req.user });
 };

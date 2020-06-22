@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const authController = require("../controllers/authController");
 const { singleImage } = require("../middlewares/imageupload");
+const authentication = require("../middlewares/authentication");
 const {
 	loginValidation,
 	signupValidation,
@@ -9,6 +10,8 @@ const {
 	resetPasswordValidation,
 	validationErrorHandler,
 } = require("../middlewares/validation");
+
+router.get("/api/v1/user", authentication("img name"), authController.getUser);
 
 router.post(
 	"/api/v1/signup",
