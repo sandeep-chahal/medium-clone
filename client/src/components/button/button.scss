@@ -11,8 +11,8 @@
 	align-items: center;
 	justify-content: center;
 	border-radius: 3px;
-	cursor: pointer;
 	overflow: hidden;
+	border: none;
 
 	.text::selection {
 		color: #fff;

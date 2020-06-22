@@ -9,7 +9,13 @@ const Button = (props) => {
 		leave: { transform: "translateY(30px)" },
 	});
 	return (
-		<button tyoe="submit" className="button-animated">
+		<button
+			type="submit"
+			style={{
+				cursor: props.loading ? "not-allowed" : "pointer",
+			}}
+			className="button-animated"
+		>
 			{transitions.map(({ item, key, props }) =>
 				item.loading ? (
 					<animated.div className="text" style={props} key={key}>
