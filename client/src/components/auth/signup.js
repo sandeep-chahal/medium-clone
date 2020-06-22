@@ -29,10 +29,12 @@ const Signup = () => {
 				if (res.data.result === "success") history.push("/");
 			})
 			.catch((err) => {
-				if (err.response && err.response.status >= 400)
+				const errors = err.response.data && err.response.data.errors;
+				if (errors)
 					err.response.data.errors.map((error) => {
 						setError(error.param, null, error.msg);
 					});
+				else setError("connection", null, "Something Went Wrong!");
 				setLoading(false);
 			});
 	};
@@ -95,6 +97,10 @@ const Signup = () => {
 					{(errors.confirmPassword && errors.confirmPassword.message) ||
 						"Invalid confirm password"}
 					!
+				</span>
+				{/* connection error */}
+				<span className={`${errors.connection ? "" : "hide"}  error`}>
+					{errors.connection && errors.connection.message}!
 				</span>
 				<Button loading={loading} text="Gooo!" />
 			</div>

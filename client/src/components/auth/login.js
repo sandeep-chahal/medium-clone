@@ -20,8 +20,13 @@ const Login = () => {
 				if (res.data.result === "success") history.push("/");
 			})
 			.catch((err) => {
-				if (err.response && err.response.status >= 400)
-					setError("email", null, "Invalid Credential");
+				// get errors
+				const errors = err.response.data && err.response.data.errors;
+				// if server responded with errors
+				if (errors)
+					errors.map((error) => setError(error.param, null, error.msg));
+				// if not
+				else setError("connection", null, "Something Went Wrong!");
 				setLoading(false);
 			});
 	};
@@ -49,9 +54,12 @@ const Login = () => {
 					})}
 				/>
 				<span
-					className={`${errors.password || errors.email ? "" : "hide"} error`}
+					className={`${
+						errors.password || errors.email || errors.connection ? "" : "hide"
+					} error`}
 				>
-					Invalid Credential!
+					{errors.connection && errors.connection.message}
+					{errors.password || errors.email ? "Invalid Credential" : null}!
 				</span>
 
 				<Button loading={loading} text="Gooo!" />
