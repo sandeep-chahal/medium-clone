@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
+import Input from "./input";
 import Button from "../button/Button";
 
 const Login = () => {
@@ -35,31 +36,16 @@ const Login = () => {
 		<form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<h1>Login</h1>
 			<div className="input-wrapper">
-				<input
+				<Input
 					style={{ marginBottom: "10px" }}
 					type="email"
-					placeholder="Email"
 					name="email"
-					ref={register({
-						pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-					})}
+					reg={register}
 				/>
-				<input
-					type="password"
-					name="password"
-					placeholder="Password"
-					ref={register({
-						required: "Invalid Password",
-						minLength: 6,
-					})}
-				/>
-				<span
-					className={`${
-						errors.password || errors.email || errors.connection ? "" : "hide"
-					} error`}
-				>
+				<Input type="password" name="password" reg={register} />
+				<span className="error">
 					{errors.connection && errors.connection.message}
-					{errors.password || errors.email ? "Invalid Credential" : null}!
+					{errors.password || errors.email ? "Invalid Credential" : null}&nbsp;
 				</span>
 
 				<Button loading={loading} text="Gooo!" />

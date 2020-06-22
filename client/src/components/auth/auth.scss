@@ -16,11 +16,15 @@
 		color: #333;
 		padding-top: 3rem;
 
+		a {
+			font-size: 1.2rem;
+			margin: 0.5rem 0;
+		}
 		.auth {
 			display: flex;
 			background-color: #fff;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			width: 55%;
+			width: 65%;
 			margin: auto;
 			height: 80vh;
 
@@ -82,19 +86,18 @@
 				display: none;
 			}
 			input {
-				// margin: 1rem 0;
 				padding: 0.35rem;
 				border: none;
+
+				&::placeholder {
+					text-transform: capitalize;
+				}
 			}
 
 			.error {
 				padding: 0.1rem;
-				// margin-bottom: 1rem;
 				font-size: 1.2rem;
 				color: #fa8072;
-			}
-			.hide {
-				opacity: 0;
 			}
 
 			label {

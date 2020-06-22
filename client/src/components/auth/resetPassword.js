@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
+import Input from "./input";
 import Button from "../button/Button";
 
 const ResetPassword = () => {
@@ -45,34 +46,23 @@ const ResetPassword = () => {
 		<form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<h1>Reset Password</h1>
 			<div className="input-wrapper">
-				<input
-					type="password"
+				<Input
 					name="password"
-					placeholder="Password"
-					ref={register({ required: true, min: 6 })}
-				/>
-				<span className={`${errors.password ? "" : "hide"}  error`}>
-					{(errors.password && errors.password.message) || "Invalid Password"}!
-				</span>
-				<input
 					type="password"
-					name="confirmPassword"
-					placeholder="Confirm Password"
-					ref={register({
-						required: true,
-						min: 6,
-						validate: (value) => value === watch("password"),
-					})}
+					reg={register}
+					error={errors.password}
 				/>
-				<span className={`${errors.confirmPassword ? "" : "hide"}  error`}>
-					{(errors.confirmPassword && errors.confirmPassword.message) ||
-						"Invalid confirm password"}
-					!
-				</span>
+				<Input
+					name="confirm Password"
+					type="password"
+					reg={register}
+					error={errors.confirmpassword}
+					watch={watch}
+				/>
 
 				{/* connection error */}
-				<span className={`${errors.connection ? "" : "hide"}  error`}>
-					{errors.connection && errors.connection.message}!
+				<span className="error">
+					{errors.connection && errors.connection.message}&nbsp;
 				</span>
 
 				<Button loading={loading} text="Reset!" />

@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+import Input from "./input";
 import Button from "../button/Button";
 
 const Signup = () => {
@@ -44,65 +45,27 @@ const Signup = () => {
 			<h1>Signup</h1>
 			<div className="input-wrapper">
 				<label htmlFor="file"></label>
-				<input
-					type="file"
-					name="img"
-					id="file"
-					ref={register({ required: true })}
-				/>
-				<span className={`${errors.img ? "" : "hide"} error`}>
-					{(errors.img && errors.img.message) || "Uplaod a File"}!
-				</span>
-				<input
-					type="text"
-					name="name"
-					placeholder="Name"
-					// ref={register({ required: true, min: 2 })}
-				/>
-				<span className={`${errors.name ? "" : "hide"}  error`}>
-					{(errors.name && errors.name.message) || "Enter a name"}!
-				</span>
-				<input
-					type="email"
-					name="email"
-					placeholder="Email"
-					ref={register({
-						required: true,
-						pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-					})}
-				/>
-				<span className={`${errors.email ? "" : "hide"} error`}>
-					{(errors.email && errors.email.message) || "Invalid Email"}!
-				</span>
-				<input
-					type="password"
+				<Input name="img" type="file" reg={register} error={errors.img} />
+				<Input name="name" reg={register} error={errors.name} />
+				<Input name="email" reg={register} error={errors.email} />
+				<Input
 					name="password"
-					placeholder="Password"
-					ref={register({ required: true, min: 6 })}
-				/>
-				<span className={`${errors.password ? "" : "hide"}  error`}>
-					{(errors.password && errors.password.message) || "Invalid Password"}!
-				</span>
-				<input
 					type="password"
-					name="confirmPassword"
-					placeholder="Confirm Password"
-					ref={register({
-						required: true,
-						min: 6,
-						validate: (value) => value === watch("password"),
-					})}
+					reg={register}
+					error={errors.password}
 				/>
-				<span className={`${errors.confirmPassword ? "" : "hide"}  error`}>
-					{(errors.confirmPassword && errors.confirmPassword.message) ||
-						"Invalid confirm password"}
-					!
-				</span>
+				<Input
+					name="confirm Password"
+					type="password"
+					reg={register}
+					error={errors.confirmpassword}
+					watch={watch}
+				/>
 				{/* connection error */}
-				<span className={`${errors.connection ? "" : "hide"}  error`}>
-					{errors.connection && errors.connection.message}!
+				<span className={`error`}>
+					{errors.connection && errors.connection.message}&nbsp;
 				</span>
-				<Button loading={loading} text="Gooo!" />
+				<Button loading={loading} text="Signup!" />
 			</div>
 			<Link to="/auth/login">Login</Link>
 		</form>

@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
+import Input from "./input";
 import Button from "../button/Button";
 
 const Login = () => {
@@ -37,24 +38,15 @@ const Login = () => {
 				<form className="form" onSubmit={handleSubmit(onSubmit)}>
 					<h1>Forgot Password</h1>
 					<div className="input-wrapper">
-						<input
+						<Input
 							style={{ marginBottom: "10px" }}
 							type="email"
-							placeholder="Email"
 							name="email"
-							ref={register({
-								required: true,
-								pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-							})}
+							reg={register}
+							error={errors.email}
 						/>
-						<span
-							className={`${
-								errors.email || errors.connection ? "" : "hide"
-							} error`}
-						>
+						<span className="error">
 							{errors.connection && errors.connection.message}
-							{(errors.email && errors.email.message) ||
-								(errors.email && "Enter Your Email!")}
 						</span>
 
 						<Button loading={loading} text="Send Mail!" />
