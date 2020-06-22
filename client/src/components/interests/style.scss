@@ -1,0 +1,37 @@
+.interests {
+	text-align: center;
+	padding: 3rem;
+	h1 {
+		font-size: 4rem;
+		font-weight: bold;
+	}
+
+	.items {
+		margin: 10rem auto;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		width: 60%;
+		.item {
+			text-transform: capitalize;
+			border: 1px solid #333;
+			padding: 0.5rem 1rem;
+			font-size: 1.5rem;
+			font-weight: bold;
+			margin: 1rem;
+			border-radius: 2rem;
+			cursor: pointer;
+			&:hover {
+				background-color: rgba(#c5e3f6, 0.1);
+			}
+		}
+		.selected,
+		.selected:hover {
+			background-color: rgba(#c5e3f6, 0.5);
+		}
+	}
+
+	button {
+		margin: auto;
+	}
+}

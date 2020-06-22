@@ -15,6 +15,7 @@ const Button = (props) => {
 				cursor: props.loading ? "not-allowed" : "pointer",
 			}}
 			className="button-animated"
+			onClick={props.onClick}
 		>
 			{transitions.map(({ item, key, props }) =>
 				item.loading ? (
