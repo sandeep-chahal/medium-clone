@@ -6,7 +6,7 @@ import submit from "./submit";
 import Input from "./input";
 import Button from "../button/Button";
 
-const Login = () => {
+const Login = ({ setUser }) => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 	const { register, handleSubmit, watch, errors, setError } = useForm();
@@ -17,26 +17,10 @@ const Login = () => {
 		submit({
 			data,
 			endpoint: "login",
-			success: () => history.push("/"),
+			success: setUser,
 			setError,
 			setLoading,
 		});
-		// setLoading(true);
-		// axios
-		// 	.post(`/api/v1/login`, data)
-		// 	.then((res) => {
-		// 		if (res.data.result === "success") history.push("/");
-		// 	})
-		// 	.catch((err) => {
-		// 		// get errors
-		// 		const errors = err.response.data && err.response.data.errors;
-		// 		// if server responded with errors
-		// 		if (errors)
-		// 			errors.map((error) => setError(error.param, null, error.msg));
-		// 		// if not
-		// 		else setError("connection", null, "Something Went Wrong!");
-		// 		setLoading(false);
-		// 	});
 	};
 
 	return (

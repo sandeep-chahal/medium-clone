@@ -6,7 +6,7 @@ import submit from "./submit";
 import Input from "./input";
 import Button from "../button/Button";
 
-const Signup = () => {
+const Signup = ({ setUser }) => {
 	const history = useHistory();
 	const [loading, setLoading] = useState(false);
 	const { register, handleSubmit, watch, errors, setError } = useForm();
@@ -15,7 +15,7 @@ const Signup = () => {
 		submit({
 			data,
 			endpoint: "signup",
-			success: () => history.push("/"),
+			success: setUser,
 			setError,
 			setLoading,
 		});
@@ -39,7 +39,7 @@ const Signup = () => {
 					name="confirm Password"
 					type="password"
 					reg={register}
-					error={errors.confirmpassword}
+					error={errors.confirmPassword}
 					watch={watch}
 				/>
 				{/* connection error */}

@@ -6,7 +6,7 @@ import submit from "./submit";
 import Input from "./input";
 import Button from "../button/Button";
 
-const Login = () => {
+const ForgotPassword = ({ setUSer }) => {
 	const [loading, setLoading] = useState(false);
 	const [sent, setSent] = useState(false);
 	const history = useHistory();
@@ -56,4 +56,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default ForgotPassword;

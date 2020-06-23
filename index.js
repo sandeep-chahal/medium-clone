@@ -11,6 +11,9 @@ const storyRoute = require("./routes/storyRoute");
 
 const app = express();
 
+// static files
+app.use(express.static("public"));
+
 //json parser
 app.use(express.json());
 

@@ -35,6 +35,7 @@ exports.postSignup = async (req, res, next) => {
 	// sending success response
 	res.status(201).json({
 		result: "success",
+		user: { name: user.name, img: user.img },
 	});
 };
 
@@ -42,7 +43,7 @@ exports.postLogin = async (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	const user = await User.findOne({ email });
+	const user = await User.findOne({ email }).select("name img password");
 	if (!user || !(await User.isPasswordValid(password, user.password)))
 		return res.status(400).json({
 			result: "error",
@@ -52,6 +53,7 @@ exports.postLogin = async (req, res, next) => {
 	createAndSendJWTToken(user._id, res);
 	return res.status(200).json({
 		result: "success",
+		user: { name: user.name, img: user.img },
 	});
 };
 
@@ -104,6 +106,7 @@ exports.resetPassoword = async (req, res, next) => {
 
 	res.status(201).json({
 		result: "success",
+		user: { name: user.name, img: user.img },
 	});
 };
 

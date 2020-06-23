@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -6,7 +6,7 @@ import submit from "./submit";
 import Input from "./input";
 import Button from "../button/Button";
 
-const ResetPassword = () => {
+const ResetPassword = ({ setUser }) => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 	const location = useLocation();
@@ -27,7 +27,7 @@ const ResetPassword = () => {
 			data: { ...data, ...queryData },
 			setLoading,
 			setError,
-			success: () => history.push("/"),
+			success: setUser,
 		});
 	};
 

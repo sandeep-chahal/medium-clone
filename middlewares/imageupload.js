@@ -47,7 +47,9 @@ exports.singleImage = (req, res, next) => {
 					.toFormat("jpeg")
 					.jpeg({ quality: 80 })
 					.toFile(`public/uploads/${fileName}-250px.jpeg`);
-				req.file.filename = fileName;
+				req.file.filename = `${req.protocol}://${req.get(
+					"host"
+				)}/uploads/${fileName}`;
 			}
 			next();
 		});

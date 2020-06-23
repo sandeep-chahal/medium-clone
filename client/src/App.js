@@ -1,31 +1,43 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState, Fragment } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import axios from "axios";
 
 import { Context } from "./store/store";
+import Nav from "./components/nav";
 import Auth from "./components/auth";
 import Interests from "./components/interests";
 import Home from "./components/home";
-import axios from "axios";
+
+import Spinner from "./components/spinner";
 
 function App() {
 	const [state, dispatch] = useContext(Context);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		axios
 			.get("/api/v1/user")
 			.then((res) => {
 				dispatch({ type: "SET_USER", payload: res.data.user });
+				setLoading(false);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				setLoading(false);
+				setLoading(false);
+			});
 	}, []);
 
-	if (!state.user) return <div>Loading...</div>;
+	if (loading) return <Spinner size="100px" color="black" />;
 	return (
-		<Switch>
-			<Route exact to="/" component={Home} />
-			<Route path="/auth" component={Auth} />
-			<Route path="/interests" component={Interests} />
-		</Switch>
+		<Fragment>
+			<Nav user={state.user} />
+			<Switch>
+				<Route path="/auth" component={Auth} />
+				{!state.user ? <Redirect to="/auth/login" /> : null}
+				<Route exact to="/" component={Home} />
+				<Route exact path="/interests" component={Interests} />
+			</Switch>
+		</Fragment>
 	);
 }
 export default App;
