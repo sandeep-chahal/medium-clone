@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.scss";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 
+import UserMenu from "./userMenu";
+
 const Nav = ({ user }) => {
+	const [menuOpen, setMenuOpen] = useState(false);
+
 	const slideLeft = useSpring({
 		from: {
 			position: "absolute",
@@ -33,7 +37,11 @@ const Nav = ({ user }) => {
 						Upgrade
 					</Link>
 					<div className="user-img">
-						<img src={`${user.img}-60px.jpeg`} />
+						<img
+							src={`${user.img}-60px.jpeg`}
+							onClick={() => setMenuOpen((prev) => !prev)}
+						/>
+						{menuOpen ? <UserMenu user={user} /> : null}
 					</div>
 				</animated.div>
 			) : null}
