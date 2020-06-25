@@ -24,10 +24,10 @@ module.exports = {
 		//delete uploaded images if error
 		if (!feildErrors.isEmpty() && (req.file || req.filename)) {
 			if (req.file) deleteUserImages(req.file.filename);
-			else if (req.filename) {
-				console.log(req.filename);
-				deleteStoryImages(req.filename);
-			}
+			// else if (req.filename) {
+			// 	console.log(req.filename);
+			// 	deleteStoryImages(req.filename);
+			// }
 		}
 
 		if (errors.length) {
@@ -147,16 +147,16 @@ module.exports = {
 	interestsValidation: [body("interests", "Invalid Format").isArray()],
 
 	createStoryValidation: [
-		body("summary", "summary length must be between 5 and 100 character long!")
+		body("summary", "summary length must be between 5 and 150 character long!")
 			.trim()
 			.custom((val) => {
-				if (val.length < 5 || val.length > 50) throw Error("");
+				if (val.length < 5 || val.length > 150) throw Error("");
 				else return true;
 			}),
 		body("tags", "story must have tags!")
 			.trim()
 			.custom((val) => {
-				if (val.length < 5 || val.length > 50) throw Error("");
+				if (val.length < 2 || val.length > 50) throw Error("");
 				else return true;
 			}),
 		body("title", "title length must be between 5 and 50 character long!")

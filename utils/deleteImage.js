@@ -9,7 +9,7 @@ exports.deleteUserImages = (name) => {
 			fs.unlink(easyPath(`../public/uploads/${filename60px}`), () => {});
 			fs.unlink(easyPath(`../public/uploads/${filename250px}`), () => {});
 		} catch (err) {
-			console.log(err);
+			// console.log(err);
 		}
 	}, 2000);
 };
@@ -18,19 +18,18 @@ exports.deleteStoryImages = (name) => {
 	setTimeout(async () => {
 		try {
 			for (let i = 1; i < 6; i++) {
-				const filename250px = `${name}-img${i}-250px.jpeg`;
-				const filenameOriginal = `${name}-img${i}-original.jpeg`;
-				await fs.unlink(easyPath(`../public/uploads/${filename250px}`), (err) =>
-					console.log(err)
-				);
+				const filename400px = `${name}-img${i}-400px.jpeg`;
+				console.log(easyPath(filename400px));
 				await fs.unlink(
-					easyPath(`../public/uploads/${filenameOriginal}`),
-					(err) => console.log(err)
+					easyPath(`${filename400px}`),
+					(err) =>
+						// console.log(err)
+						1
 				);
 			}
 		} catch (err) {
 			console.log("--failed to deloete story images---");
-			console.log(err.message);
+			// console.log(err.message);
 		}
 	}, 2000);
 };

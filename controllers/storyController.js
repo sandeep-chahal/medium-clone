@@ -10,7 +10,7 @@ exports.createStory = async (req, res, next) => {
 	const summary = req.body.summary;
 	const tags = req.body.tags.split(",").map((tag) => tag.trim());
 	const author = req.user._id;
-	const img = req.filename;
+	const img = req.file.filename;
 
 	// create story
 	const story = await Story.create({ title, body, img, tags, author, summary });
@@ -114,8 +114,10 @@ exports.removeBookmark = async (req, res, next) => {
 exports.getStories = async (req, res, next) => {
 	const intersets = req.user.interests;
 	const following = req.user.following;
-	const skip = req.query.skip || 0;
+	const page = req.query.page || 1;
 	const limit = req.query.limit || 10;
+
+	const skip = page * limit - limit;
 
 	const stories = await Story.find({
 		$or: [

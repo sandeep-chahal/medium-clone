@@ -1,9 +1,14 @@
 const Reducer = (state, action) => {
 	switch (action.type) {
 		case "SET_STORIES":
+			console.log("got here");
+			console.log(action.payload.stories);
 			return {
 				...state,
-				stories: action.payload,
+				stories: [...state.stories, ...action.payload.stories],
+				page: action.payload.page,
+				more: action.payload.more,
+				fetchingStories: false,
 			};
 		case "SET_USER":
 			return {

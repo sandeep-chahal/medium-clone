@@ -35,8 +35,10 @@ function App() {
 			<Switch>
 				<Route path="/auth" component={Auth} />
 				{!state.user ? <Redirect to="/auth/login" /> : null}
-				<Route exact to="/newstory" component={Editor} />
-				<Route exact to="/" component={Home} />
+				<Route exact path="/newstory" component={Editor} />
+				<Route exact path="/">
+					<Home state={state} dispatch={dispatch} />
+				</Route>
 				<Route exact path="/interests" component={Interests} />
 			</Switch>
 		</Fragment>

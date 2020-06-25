@@ -3,9 +3,11 @@ import Reducer from "./reducer";
 
 const initialState = {
 	stories: [],
+	page: 1,
 	loading: true,
 	user: null,
 	error: null,
+	fetchingStories: true,
 };
 
 const Store = ({ children }) => {

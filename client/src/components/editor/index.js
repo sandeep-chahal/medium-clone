@@ -38,20 +38,16 @@ const Editor = () => {
 	const submit = () => {
 		if (!loading && !validation()) return;
 		setLoading(true);
+		const formData = new FormData();
+		formData.append("title", title.current);
+		formData.append("summary", summary.current);
+		formData.append("img", img);
+		formData.append("tags", tags.current);
+		formData.append("body", body.current);
 		axios
-			.post(
-				"/api/v1/createStory",
-				{
-					title: title.current,
-					summary: summary.current,
-					body: body.current,
-					img: img.current,
-					tags: tags.current,
-				},
-				{
-					"content-type": "multipart/form-data",
-				}
-			)
+			.post("/api/v1/createStory", formData, {
+				"content-type": "multipart/form-data",
+			})
 			.then((res) => {
 				if (res.data.result === "success")
 					history.push(`/story/${res.data.story._id}`);
