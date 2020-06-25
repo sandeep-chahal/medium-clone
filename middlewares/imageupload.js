@@ -38,12 +38,12 @@ exports.singleImage = (req, res, next) => {
 			} else if (req.file && req.file.buffer) {
 				const fileName = String(Date.now());
 				sharp(req.file.buffer)
-					.resize(60, 60)
+					.resize(80, 80)
 					.toFormat("jpeg")
 					.jpeg({ quality: 80 })
 					.toFile(`public/uploads/${fileName}-60px.jpeg`);
 				sharp(req.file.buffer)
-					.resize(250, 250)
+					.resize(300, 300)
 					.toFormat("jpeg")
 					.jpeg({ quality: 80 })
 					.toFile(`public/uploads/${fileName}-250px.jpeg`);

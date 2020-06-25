@@ -7,6 +7,7 @@ import Nav from "./components/nav";
 import Auth from "./components/auth";
 import Interests from "./components/interests";
 import Home from "./components/home";
+import Editor from "./components/editor";
 
 import Spinner from "./components/spinner";
 
@@ -34,6 +35,7 @@ function App() {
 			<Switch>
 				<Route path="/auth" component={Auth} />
 				{!state.user ? <Redirect to="/auth/login" /> : null}
+				<Route exact to="/newstory" component={Editor} />
 				<Route exact to="/" component={Home} />
 				<Route exact path="/interests" component={Interests} />
 			</Switch>

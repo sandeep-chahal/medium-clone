@@ -7,19 +7,20 @@ exports.createStory = async (req, res, next) => {
 	// get data
 	const title = req.body.title;
 	const body = req.body.body;
-	const tags = req.body.tags;
+	const summary = req.body.summary;
+	const tags = req.body.tags.split(",").map((tag) => tag.trim());
 	const author = req.user._id;
 	const img = req.filename;
 
 	// create story
-	const story = await Story.create({ title, body, img, tags, author });
+	const story = await Story.create({ title, body, img, tags, author, summary });
 
 	// add story to user document
 	await User.findByIdAndUpdate(author, {
 		$push: { stories: story._id },
 	});
 
-	res.json({ result: "success", story });
+	res.json({ result: "success", story: { _id: story._id } });
 };
 
 exports.deleteStory = async (req, res, next) => {

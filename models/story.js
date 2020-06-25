@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const storySchema = new mongoose.Schema({
 	title: String,
-	body: Array,
+	body: String,
+	summary: String,
 	img: String,
 	tags: {
 		type: [String],

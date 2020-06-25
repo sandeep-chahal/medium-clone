@@ -147,13 +147,28 @@ module.exports = {
 	interestsValidation: [body("interests", "Invalid Format").isArray()],
 
 	createStoryValidation: [
+		body("summary", "summary length must be between 5 and 100 character long!")
+			.trim()
+			.custom((val) => {
+				if (val.length < 5 || val.length > 50) throw Error("");
+				else return true;
+			}),
+		body("tags", "story must have tags!")
+			.trim()
+			.custom((val) => {
+				if (val.length < 5 || val.length > 50) throw Error("");
+				else return true;
+			}),
 		body("title", "title length must be between 5 and 50 character long!")
 			.trim()
-			.isLength({ min: 5, max: 50 })
 			.custom((val) => {
-				console.log(val);
+				if (!val) throw Error("");
+				else return true;
 			}),
-		body("body", "story must have body!").isArray(),
+		body("body", "body must have atleast 50 char!").custom((val) => {
+			if (val.length < 50) throw Error("");
+			else return true;
+		}),
 	],
 
 	storyIdValidation: [
