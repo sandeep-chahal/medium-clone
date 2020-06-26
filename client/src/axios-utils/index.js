@@ -21,3 +21,14 @@ export const fetchStories = (page, dispatch) => {
 export const bookmark = (storyId) => {
 	axios.post(`/api/v1/bookmark`, { id: storyId });
 };
+export const fetchStory = (storyId, setStory, errorHandler) => {
+	axios
+		.get(`/api/v1/story?id=${storyId}`)
+		.then((res) => {
+			console.log(res.data);
+			setStory(res.data.data.story);
+		})
+		.catch((err) => {
+			errorHandler();
+		});
+};

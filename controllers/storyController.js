@@ -144,7 +144,7 @@ exports.getStories = async (req, res, next) => {
 exports.getStory = async (req, res, next) => {
 	const storyId = req.query.id;
 
-	const story = await Story.findById(storyId);
+	const story = await Story.findById(storyId).populate("author", "name img");
 
 	res.json({
 		result: "success",

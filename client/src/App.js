@@ -8,6 +8,7 @@ import Auth from "./components/auth";
 import Interests from "./components/interests";
 import Home from "./components/home";
 import Editor from "./components/editor";
+import Story from "./components/story";
 
 import Spinner from "./components/spinner";
 
@@ -40,6 +41,7 @@ function App() {
 					<Home state={state} dispatch={dispatch} />
 				</Route>
 				<Route exact path="/interests" component={Interests} />
+				<Route exact path="/story/:id" component={Story} />
 			</Switch>
 		</Fragment>
 	);

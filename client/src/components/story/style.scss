@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.story {
+	width: 70%;
+	margin: 3rem auto 0;
+	font-family: "Lato", sans-serif;
+	h1 {
+		font-size: 4rem;
+		margin-bottom: 2rem;
+	}
+	.about {
+		display: flex;
+		justify-content: space-between;
+		.author {
+			font-size: 1.6rem;
+			&-img {
+				width: 4rem;
+				height: 4rem;
+				border-radius: 50%;
+				margin-right: 2rem;
+			}
+			.name {
+				margin-bottom: 0.5rem;
+			}
+
+			display: flex;
+			font-size: 1.6rem;
+		}
+	}
+
+	.icon {
+		width: 3rem;
+		opacity: 0.8;
+		cursor: pointer;
+		&:hover {
+			opacity: 1;
+		}
+	}
+	.markdown {
+		font-family: "Lato", sans-serif;
+		color: #333;
+		font-size: 2.8rem;
+		line-height: 4rem;
+		margin-top: 5rem;
+		font-family: serif;
+	}
+
+	.line {
+		width: 100%;
+		height: 1px;
+		background-color: rgba($color: #333, $alpha: 0.3);
+		margin: 1rem 0;
+	}
+
+	.tags {
+		margin: 3rem 0;
+		display: flex;
+		.tag {
+			margin: 1rem 2rem;
+			font-size: 2rem;
+			background-color: rgb(214, 214, 214);
+			color: rgb(66, 66, 66);
+			padding: 0.5rem 1rem;
+		}
+	}
+
+	.claps {
+		display: flex;
+		font-size: 2rem;
+		align-items: center;
+		img {
+			width: 5rem;
+			height: 5rem;
+			border: 1px solid #ccc;
+			margin-right: 1rem;
+			border-radius: 50%;
+		}
+	}
+
+	.footer-author {
+		margin: 3rem 0;
+		display: flex;
+		width: 100%;
+		align-items: center;
+		img {
+			width: 5rem;
+			height: 5rem;
+			border-radius: 50%;
+		}
+
+		.author {
+			margin-left: 3rem;
+			font-size: 2rem;
+			.written-by {
+				opacity: 0.5;
+			}
+			.name {
+				font-weight: bold;
+				font-size: 3rem;
+				margin-top: 0.5rem;
+			}
+		}
+		.follow-btn {
+			margin-left: auto;
+			font-size: 1.6rem;
+			border: 1px solid rgb(247, 70, 70);
+			padding: 0.5rem 1rem;
+			cursor: pointer;
+		}
+	}
+}
