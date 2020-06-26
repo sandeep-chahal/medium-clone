@@ -3,7 +3,7 @@ import "./style.scss";
 import { useHistory } from "react-router-dom";
 import MediumEditor from "react-medium-editor";
 
-import { fetchStory, bookmark } from "../../axios-utils";
+import { fetchStory, bookmark, follow } from "../../axios-utils";
 import Spinner from "../spinner";
 import StoryItem from "./storyItem";
 
@@ -13,6 +13,10 @@ const Story = (props) => {
 	useEffect(() => {
 		fetchStory(props.match.params.id, setStory, () => history.push("/"));
 	}, []);
+
+	const handleFollow = () => {
+		follow(story.author._id);
+	};
 
 	if (!story) return <Spinner color="black" />;
 	return (
@@ -28,7 +32,7 @@ const Story = (props) => {
 						</div>
 					</div>
 					<img
-						onClick={bookmark(() => bookmark(story._id))}
+						onClick={() => bookmark(story._id)}
 						className="icon"
 						src={require("../../assets/img/bookmark.svg")}
 					/>
@@ -64,7 +68,9 @@ const Story = (props) => {
 					<div className="written-by">Written by</div>
 					<div className="name">{story.author.name}</div>
 				</div>
-				<div className="follow-btn">Follow</div>
+				<div className="follow-btn" onClick={handleFollow}>
+					Follow
+				</div>
 			</div>
 			<div className="line"></div>
 		</div>

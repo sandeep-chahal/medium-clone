@@ -32,3 +32,23 @@ export const fetchStory = (storyId, setStory, errorHandler) => {
 			errorHandler();
 		});
 };
+export const follow = (id) => {
+	axios
+		.post(`/api/v1/follow`, { id })
+		.then((res) => {
+			console.log(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+export const unfollow = (id) => {
+	axios
+		.post(`/api/v1/unfollow`, { id })
+		.then((res) => {
+			console.log(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
