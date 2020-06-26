@@ -27,7 +27,9 @@ const Nav = ({ user }) => {
 
 	return (
 		<nav>
-			<animated.h3 style={slideLeft}>Medium</animated.h3>
+			<animated.h3 style={slideLeft}>
+				<Link to="/">Medium</Link>
+			</animated.h3>
 			{user ? (
 				<animated.div style={slideUp} className="menu-items">
 					<Link to="/bookmark">
