@@ -1,6 +1,5 @@
 const Story = require("../models/story");
 const User = require("../models/user");
-const { findById } = require("../models/story");
 
 // -------------setters---------------------
 exports.createStory = async (req, res, next) => {
@@ -52,35 +51,19 @@ exports.clap = async (req, res, next) => {
 		},
 	}).select("_id");
 
-	// if already clapped then remove clap else clap
-	await Story.findByIdAndUpdate(
-		storyId,
-		clapped
-			? {
-					$pull: {
-						claps: userId,
-					},
-			  }
-			: {
-					$push: {
-						claps: userId,
-					},
-			  }
-	);
-	await User.findByIdAndUpdate(
-		userId,
-		clapped
-			? {
-					$pull: {
-						claps: storyId,
-					},
-			  }
-			: {
-					$push: {
-						claps: storyId,
-					},
-			  }
-	);
+	if (clapped) return res.json({ result: "success" });
+	Promise.all([
+		Story.findByIdAndUpdate(storyId, {
+			$push: {
+				claps: userId,
+			},
+		}),
+		User.findByIdAndUpdate(userId, {
+			$push: {
+				claps: storyId,
+			},
+		}),
+	]);
 
 	res.json({ result: "success" });
 };

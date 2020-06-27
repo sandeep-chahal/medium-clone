@@ -56,3 +56,14 @@ export const unfollow = (id) => {
 			console.log(err);
 		});
 };
+export const clap = (id) => {
+	return axios
+		.post(`/api/v1/clap`, { id })
+		.then((res) => {
+			return true;
+		})
+		.catch((err) => {
+			return false;
+			console.log(err);
+		});
+};

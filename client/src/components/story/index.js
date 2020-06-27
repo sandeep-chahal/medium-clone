@@ -7,6 +7,7 @@ import { fetchStory, bookmark, follow } from "../../axios-utils";
 import Spinner from "../spinner";
 import BookmarkBtn from "../buttons/bookmark";
 import FollowBtn from "../buttons/follow";
+import ClapBtn from "../buttons/clap";
 
 const Story = (props) => {
 	const [story, setStory] = useState(null);
@@ -55,7 +56,7 @@ const Story = (props) => {
 				))}
 			</div>
 			<div className="claps">
-				<img />
+				<ClapBtn id={story._id} />
 				<div className="count">{story.claps.length} claps</div>
 			</div>
 			<div className="line"></div>
