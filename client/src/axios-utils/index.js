@@ -23,6 +23,11 @@ export const bookmark = (storyId) => {
 		return true;
 	});
 };
+export const unbookmark = (storyId) => {
+	return axios.post(`/api/v1/removeBookmark`, { id: storyId }).then((res) => {
+		return true;
+	});
+};
 export const fetchStory = (storyId, setStory, errorHandler) => {
 	axios
 		.get(`/api/v1/story?id=${storyId}`)

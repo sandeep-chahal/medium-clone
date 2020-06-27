@@ -6,9 +6,11 @@ const FollowBtn = ({ id, isF }) => {
 	const [following, setFollowing] = useState(isF || false);
 
 	const handleFollow = () => {
-		if (following)
-			if (unfollow(id)) setFollowing(false);
-			else if (follow(id)) setFollowing(true);
+		if (following) {
+			unfollow(id) && setFollowing(false);
+		} else {
+			follow(id) && setFollowing(true);
+		}
 	};
 	return (
 		<div className={`follow-btn`} onClick={handleFollow}>

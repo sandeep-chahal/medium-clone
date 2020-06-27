@@ -72,19 +72,13 @@ exports.bookmark = async (req, res, next) => {
 	const storyId = req.body.id;
 	const userId = req.user._id;
 
-	await User.findByIdAndUpdate(
-		userId,
-		{
-			bookmark: {
-				$nin: storyId,
-			},
+	console.log(storyId);
+
+	await User.findByIdAndUpdate(userId, {
+		$push: {
+			bookmark: storyId,
 		},
-		{
-			$push: {
-				bookmark: storyId,
-			},
-		}
-	);
+	});
 
 	res.json({
 		result: "success",
@@ -98,6 +92,9 @@ exports.removeBookmark = async (req, res, next) => {
 		$pull: {
 			bookmark: storyId,
 		},
+	});
+	res.json({
+		result: "success",
 	});
 };
 
