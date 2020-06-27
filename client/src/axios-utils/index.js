@@ -19,7 +19,9 @@ export const fetchStories = (page, dispatch) => {
 		});
 };
 export const bookmark = (storyId) => {
-	axios.post(`/api/v1/bookmark`, { id: storyId });
+	return axios.post(`/api/v1/bookmark`, { id: storyId }).then((res) => {
+		return true;
+	});
 };
 export const fetchStory = (storyId, setStory, errorHandler) => {
 	axios
@@ -33,22 +35,24 @@ export const fetchStory = (storyId, setStory, errorHandler) => {
 		});
 };
 export const follow = (id) => {
-	axios
+	return axios
 		.post(`/api/v1/follow`, { id })
 		.then((res) => {
-			console.log(res.data);
+			return true;
 		})
 		.catch((err) => {
+			return false;
 			console.log(err);
 		});
 };
 export const unfollow = (id) => {
-	axios
+	return axios
 		.post(`/api/v1/unfollow`, { id })
 		.then((res) => {
-			console.log(res.data);
+			return true;
 		})
 		.catch((err) => {
+			return false;
 			console.log(err);
 		});
 };

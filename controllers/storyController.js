@@ -89,11 +89,19 @@ exports.bookmark = async (req, res, next) => {
 	const storyId = req.body.id;
 	const userId = req.user._id;
 
-	await User.findByIdAndUpdate(userId, {
-		$push: {
-			bookmark: storyId,
+	await User.findByIdAndUpdate(
+		userId,
+		{
+			bookmark: {
+				$nin: storyId,
+			},
 		},
-	});
+		{
+			$push: {
+				bookmark: storyId,
+			},
+		}
+	);
 
 	res.json({
 		result: "success",
@@ -144,14 +152,38 @@ exports.getStories = async (req, res, next) => {
 exports.getStory = async (req, res, next) => {
 	const storyId = req.query.id;
 
-	const story = await Story.findById(storyId).populate("author", "name img");
-
-	res.json({
-		result: "success",
-		data: {
-			story,
+	const storyQuery = Story.findById(storyId)
+		.populate("author", "name img")
+		.lean();
+	const bookmarkedQuery = User.findOne({
+		_id: req.user._id,
+		bookmark: {
+			$in: storyId,
 		},
-	});
+	})
+		.select("_id")
+		.lean();
+
+	let story = null;
+	Promise.all([storyQuery, bookmarkedQuery]).then(
+		async ([story, bookmarked]) => {
+			const following = await User.findOne({
+				_id: req.user._id,
+				following: {
+					$in: story.author._id,
+				},
+			})
+				.select("_id")
+				.lean();
+			story = { bookmarked: !!bookmarked, following: !!following, ...story };
+			res.json({
+				result: "success",
+				data: {
+					story,
+				},
+			});
+		}
+	);
 };
 
 exports.getStoryClappers = async (req, res, next) => {

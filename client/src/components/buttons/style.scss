@@ -1,0 +1,12 @@
+.bookmark-logo {
+	cursor: pointer;
+	svg {
+		width: 3rem;
+		opacity: 0.7;
+	}
+	.bookmarked {
+		opacity: 1;
+		stroke: #333;
+		stroke-width: 4;
+	}
+}

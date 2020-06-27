@@ -40,7 +40,7 @@ const Nav = ({ user }) => {
 					</Link>
 					<div className="user-img">
 						<img
-							src={`${user.img}-60px.jpeg`}
+							src={`${user.img}-80px.jpeg`}
 							onClick={() => setMenuOpen((prev) => !prev)}
 						/>
 						{menuOpen ? <UserMenu user={user} /> : null}

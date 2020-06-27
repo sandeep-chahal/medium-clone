@@ -5,7 +5,8 @@ import MediumEditor from "react-medium-editor";
 
 import { fetchStory, bookmark, follow } from "../../axios-utils";
 import Spinner from "../spinner";
-import StoryItem from "./storyItem";
+import BookmarkBtn from "../buttons/bookmark";
+import FollowBtn from "../buttons/follow";
 
 const Story = (props) => {
 	const [story, setStory] = useState(null);
@@ -31,11 +32,7 @@ const Story = (props) => {
 							<div className="date">{story.createdAt}</div>
 						</div>
 					</div>
-					<img
-						onClick={() => bookmark(story._id)}
-						className="icon"
-						src={require("../../assets/img/bookmark.svg")}
-					/>
+					<BookmarkBtn isBM={story.bookmarked} id={story._id} />
 				</div>
 			</div>
 			<div className="markdown">
@@ -63,14 +60,12 @@ const Story = (props) => {
 			</div>
 			<div className="line"></div>
 			<div className="footer-author">
-				<img src={`{story.author.img}-450px.jpeg`} />
+				<img src={`${story.author.img}-300px.jpeg`} />
 				<div className="author">
 					<div className="written-by">Written by</div>
 					<div className="name">{story.author.name}</div>
 				</div>
-				<div className="follow-btn" onClick={handleFollow}>
-					Follow
-				</div>
+				<FollowBtn id={story.author._id} isF={story.following} />
 			</div>
 			<div className="line"></div>
 		</div>
