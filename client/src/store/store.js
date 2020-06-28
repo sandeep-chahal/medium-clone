@@ -7,7 +7,7 @@ const initialState = {
 	loading: true,
 	user: null,
 	error: null,
-	fetchingStories: true,
+	// fetchingStories: true,
 };
 
 const Store = ({ children }) => {

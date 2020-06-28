@@ -113,3 +113,8 @@ exports.resetPassoword = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
 	res.json({ user: req.user });
 };
+
+exports.signout = async (req, res, next) => {
+	res.cookie("jwtToken", "");
+	res.json({ result: "success" });
+};

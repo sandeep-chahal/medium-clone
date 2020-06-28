@@ -25,6 +25,14 @@ const Reducer = (state, action) => {
 				...state,
 				error: action.payload,
 			};
+		case "SIGNOUT":
+			return {
+				stories: [],
+				page: 1,
+				loading: false,
+				user: null,
+				error: null,
+			};
 		default:
 			return state;
 	}

@@ -72,3 +72,9 @@ export const clap = (id) => {
 			console.log(err);
 		});
 };
+
+export const signout = () => {
+	return axios
+		.get("/api/v1/signout")
+		.then((res) => (res.result === "success" ? true : false));
+};

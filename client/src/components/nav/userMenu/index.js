@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
+import { signout } from "../../../axios-utils";
+import { Context } from "../../../store/store";
 
 const UserMenu = ({ user }) => {
+	const [_, dispatch] = useContext(Context);
 	const growDown = useSpring({
 		from: {
 			height: "0px",
 		},
 		height: "300px",
 	});
+
+	const handleSignout = () => {
+		if (signout) {
+			dispatch({ type: "SIGNOUT" });
+		}
+	};
 
 	return (
 		<animated.div style={growDown} className="user-menu-wrapper">
@@ -29,7 +38,9 @@ const UserMenu = ({ user }) => {
 					<Link to="/interests">Customize your interests</Link>
 					<div className="line" />
 					<Link to="/profile">Profile</Link>
-					<Link to="/signout">Signout</Link>
+					<div className="signout-btn" onClick={handleSignout}>
+						Signout
+					</div>
 				</ul>
 			</div>
 		</animated.div>

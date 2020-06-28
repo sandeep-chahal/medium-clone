@@ -40,4 +40,6 @@ router.post(
 	authController.resetPassoword
 );
 
+router.get("/api/v1/signout", authController.signout);
+
 module.exports = router;
