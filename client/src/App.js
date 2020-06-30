@@ -10,6 +10,7 @@ import Home from "./components/home";
 import Editor from "./components/editor";
 import Story from "./components/story";
 import Stories from "./components/stories";
+import Bookmark from "./components/bookmark/bookmark";
 
 import Spinner from "./components/spinner";
 
@@ -49,6 +50,7 @@ function App() {
 				<Route exact path="/interests" component={Interests} />
 				<Route exact path="/story/:id" component={Story} />
 				<Route exact path="/user/:id" component={Stories} />
+				<Route exact path="/bookmark" component={Bookmark} />
 			</Switch>
 		</Fragment>
 	);

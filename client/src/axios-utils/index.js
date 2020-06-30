@@ -91,3 +91,15 @@ export const getUserStories = (id, page) => {
 			return false;
 		});
 };
+
+export const fetchBookmarkStories = () => {
+	return axios
+		.get(`/api/v1/getBookmark`)
+		.then((res) => {
+			return res.data.data.stories;
+		})
+		.catch((err) => {
+			console.log(err.message);
+			return false;
+		});
+};
