@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
-import { useHistory } from "react-router-dom";
 
 import { fetchStories, bookmark } from "../../axios-utils";
 import StoryItem from "./storyItem";
 import Button from "../button/Button";
 import Spinner from "../spinner";
+import { Link } from "react-router-dom";
 
 const Home = ({ state, dispatch }) => {
 	useEffect(() => {
-		fetchStories(state.page, dispatch);
+		if (!state.stories.length)
+			fetchStories(state.page, dispatch, !state.trendingStories.length);
 	}, []);
 
 	if (state.fetchingStories) return <Spinner color="#333" />;
@@ -28,7 +29,23 @@ const Home = ({ state, dispatch }) => {
 				) : null}
 			</div>
 			<div className="sidebar">
-				<div className="trending"></div>
+				<div className="trending">
+					{Array.isArray(state.trendingStories) &&
+						state.trendingStories.map(
+							(story) =>
+								story && (
+									<Link
+										to={`/story/${story._id}`}
+										className="trending-story"
+										key={story._id}
+									>
+										<h3>{story.title}</h3>
+										<div className="summary">{story.summary}</div>
+										<div className="date">{story.createdAt}</div>
+									</Link>
+								)
+						)}
+				</div>
 				<div className="footer"></div>
 			</div>
 		</div>

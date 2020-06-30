@@ -6,6 +6,10 @@ const Reducer = (state, action) => {
 			return {
 				...state,
 				stories: [...state.stories, ...action.payload.stories],
+				trendingStories: [
+					...state.trendingStories,
+					...action.payload.trendingStories,
+				],
 				page: action.payload.page,
 				more: action.payload.more,
 				fetchingStories: false,

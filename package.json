@@ -23,6 +23,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.9.18",
 		"multer": "^1.4.2",
+		"node-cron": "^2.0.3",
 		"node-sass": "^4.14.1",
 		"react-hook-form": "^5.7.2",
 		"react-medium-editor": "^1.8.1",

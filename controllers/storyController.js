@@ -1,5 +1,8 @@
 const Story = require("../models/story");
 const User = require("../models/user");
+var cron = require("node-cron");
+
+let trendingStories = [];
 
 // -------------setters---------------------
 exports.createStory = async (req, res, next) => {
@@ -104,6 +107,7 @@ exports.getStories = async (req, res, next) => {
 	const following = req.user.following;
 	const page = req.query.page || 1;
 	const limit = req.query.limit || 10;
+	const trending = req.query.getTrending == "true";
 
 	const skip = page * limit - limit;
 
@@ -125,8 +129,14 @@ exports.getStories = async (req, res, next) => {
 		.limit(limit)
 		.populate("author", "img name _id")
 		.lean(true);
-
-	res.json({ result: "success", data: { stories, length: stories.length } });
+	let trendingStories = [];
+	if (trending) {
+		trendingStories = await getTrending();
+	}
+	res.json({
+		result: "success",
+		data: { trendingStories, stories, length: stories.length },
+	});
 };
 
 exports.getStory = async (req, res, next) => {
@@ -234,3 +244,23 @@ exports.getBookmark = async (req, res, next) => {
 		},
 	});
 };
+
+const getTrending = async () => {
+	let stories = [];
+	for (let { _id } of trendingStories) {
+		const story = await Story.findById(_id)
+			.select("_id title summary author createdAt")
+			.lean();
+		stories.push(story);
+	}
+	return stories;
+};
+
+// get trending stories every day
+const findTrending = async () => {
+	const stories = await Story.find({}).sort("claps").limit(5).select("_id");
+	trendingStories = stories;
+};
+cron.schedule("0 1 * * *", findTrending);
+
+findTrending();

@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const fetchStories = (page, dispatch) => {
+export const fetchStories = (page, dispatch, getTrending) => {
 	axios
-		.get(`/api/v1/stories?page=${page}`)
+		.get(`/api/v1/stories?page=${page}&getTrending=${getTrending}`)
 		.then((res) => {
 			dispatch({
 				type: "SET_STORIES",
 				payload: {
+					trendingStories: res.data.data.trendingStories,
 					stories: res.data.data.stories,
 					page: ++page,
 					fetchingStories: false,

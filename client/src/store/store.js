@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from "react";
 import Reducer from "./reducer";
 
 const initialState = {
+	trendingStories: [],
 	stories: [],
 	page: 1,
 	loading: true,
