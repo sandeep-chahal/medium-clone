@@ -37,7 +37,9 @@ const UserMenu = ({ user }) => {
 					<Link to="/user/me">Stories</Link>
 					<Link to="/interests">Customize your interests</Link>
 					<div className="line" />
-					<Link to="/profile">Profile</Link>
+					<a href="https://help.medium.com/hc/en-us" target="_blank">
+						Help
+					</a>
 					<div className="signout-btn" onClick={handleSignout}>
 						Signout
 					</div>
