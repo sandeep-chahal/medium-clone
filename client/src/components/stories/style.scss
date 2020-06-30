@@ -1,0 +1,78 @@
+.stories {
+	font-family: monospace;
+	margin-top: 5rem;
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 70%;
+		margin: auto;
+		h1 {
+			font-size: 3rem;
+			font-weight: bold;
+		}
+		a {
+			text-decoration: none;
+			color: #333333;
+			padding: 0.5rem 1rem;
+			border: 1px solid rgb(32, 202, 114);
+			font-size: 1.6rem;
+		}
+	}
+	.user-header {
+		display: flex;
+		align-items: center;
+		width: 60%;
+		margin: auto;
+
+		.user {
+			margin-left: 3rem;
+		}
+		img {
+			width: 10rem;
+			height: 10rem;
+			border-radius: 50%;
+			background-position: center;
+			background-size: cover;
+		}
+		h2 {
+			margin-bottom: 1rem;
+			font-size: 3rem;
+			font-weight: bold;
+		}
+		a {
+			text-decoration: none;
+			color: #333333;
+			padding: 0.5rem 1rem;
+			border: 1px solid rgb(32, 202, 114);
+			font-size: 1.6rem;
+		}
+	}
+
+	.list {
+		width: 60%;
+		margin: 3rem auto;
+		display: flex;
+		flex-direction: column;
+
+		.story-item {
+			text-decoration: none;
+			color: #333;
+			margin: 1rem 0;
+			padding: 1rem 0;
+			border-bottom: 1px solid #333;
+			h2 {
+				font-size: 2.5rem;
+			}
+			.summary {
+				font-size: 1.6rem;
+				opacity: 0.7;
+				margin: 0.5rem;
+			}
+			.date {
+				margin-top: 1rem;
+				font-size: 1.6rem;
+			}
+		}
+	}
+}

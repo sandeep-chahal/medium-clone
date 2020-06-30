@@ -183,21 +183,36 @@ exports.getStoryClappers = async (req, res, next) => {
 };
 exports.getUserStories = async (req, res, next) => {
 	const userId = req.query.id;
+	// const page = req.query.page;
+	// const skip = page * 5 - 5;
 
 	const user = await User.findById(userId)
-		.select("stories name img")
-		.populate("stories");
+		.select("stories name _id img")
+		.populate("stories", "title _id summary createdAt");
 
 	if (!user)
 		return res.json({
 			result: "error",
 			errors: [{ msg: "No user found" }],
 		});
+	let isFollowing;
+	if (userId !== req.user._id)
+		isFollowing = await User.findOne({
+			_id: req.user._id,
+			following: {
+				$in: userId,
+			},
+		});
 
 	res.json({
 		result: "success",
 		data: {
-			user: { _id: user._id, name: user.name, img: user.img },
+			user: {
+				_id: user._id,
+				name: user.name,
+				img: user.img,
+				isFollowing: !!isFollowing,
+			},
 			stories: user.stories,
 			length: user.stories.length,
 		},

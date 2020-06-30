@@ -11,19 +11,21 @@
 		display: flex;
 		justify-content: space-between;
 		.author {
-			font-size: 1.6rem;
 			&-img {
-				width: 4rem;
-				height: 4rem;
+				width: 8rem;
+				height: 8rem;
 				border-radius: 50%;
 				margin-right: 2rem;
 				background-size: cover;
 				background-position: center;
 			}
 			.name {
-				margin-bottom: 0.5rem;
+				color: #333;
+				font-size: 2.5rem;
 			}
-
+			.date {
+				margin-top: 1rem;
+			}
 			display: flex;
 			font-size: 1.6rem;
 		}
@@ -96,17 +98,12 @@
 				opacity: 0.5;
 			}
 			.name {
+				text-decoration: none;
+				color: #333;
 				font-weight: bold;
 				font-size: 3rem;
 				margin-top: 0.5rem;
 			}
-		}
-		.follow-btn {
-			margin-left: auto;
-			font-size: 1.6rem;
-			border: 1px solid rgb(247, 70, 70);
-			padding: 0.5rem 1rem;
-			cursor: pointer;
 		}
 	}
 }

@@ -9,6 +9,7 @@ import Interests from "./components/interests";
 import Home from "./components/home";
 import Editor from "./components/editor";
 import Story from "./components/story";
+import Stories from "./components/stories";
 
 import Spinner from "./components/spinner";
 
@@ -20,7 +21,12 @@ function App() {
 		axios
 			.get("/api/v1/user")
 			.then((res) => {
-				dispatch({ type: "SET_USER", payload: res.data.user });
+				dispatch({
+					type: "SET_USER",
+					payload: {
+						...res.data.user,
+					},
+				});
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -42,6 +48,7 @@ function App() {
 				</Route>
 				<Route exact path="/interests" component={Interests} />
 				<Route exact path="/story/:id" component={Story} />
+				<Route exact path="/user/:id" component={Stories} />
 			</Switch>
 		</Fragment>
 	);

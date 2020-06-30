@@ -34,7 +34,7 @@ const UserMenu = ({ user }) => {
 				<div className="line" />
 				<ul>
 					<Link to="/newStory">New Story</Link>
-					<Link to="/stories">Stories</Link>
+					<Link to="/user/me">Stories</Link>
 					<Link to="/interests">Customize your interests</Link>
 					<div className="line" />
 					<Link to="/profile">Profile</Link>

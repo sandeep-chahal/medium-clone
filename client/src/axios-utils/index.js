@@ -78,3 +78,15 @@ export const signout = () => {
 		.get("/api/v1/signout")
 		.then((res) => (res.result === "success" ? true : false));
 };
+
+export const getUserStories = (id, page) => {
+	return axios
+		.get(`/api/v1/getUserStories?id=${id}&page=${page}`)
+		.then((res) => {
+			return [res.data.data.stories, res.data.data.user];
+		})
+		.catch((err) => {
+			console.log(err.message);
+			return false;
+		});
+};
