@@ -49,7 +49,9 @@ const Interests = () => {
 			})
 			.then((res) => {
 				console.log(res);
-				if (res.data && res.data.result === "success") history.push("/");
+				if (res.data && res.data.result === "success") {
+					window.location.replace("/");
+				}
 			})
 			.catch((err) => {
 				console.log(err, err.response);

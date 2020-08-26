@@ -5,7 +5,7 @@ import { fetchStories, bookmark } from "../../axios-utils";
 import StoryItem from "./storyItem";
 import Button from "../button/Button";
 import Spinner from "../spinner";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const Home = ({ state, dispatch }) => {
 	useEffect(() => {
@@ -17,10 +17,16 @@ const Home = ({ state, dispatch }) => {
 	return (
 		<div className="home">
 			<div className="feed-stories">
-				{Array.isArray(state.stories) &&
+				{Array.isArray(state.stories) ? (
 					state.stories.map((story) => (
 						<StoryItem story={story} key={story._id} bookmark={bookmark} />
-					))}
+					))
+				) : (
+					<div className="empty">
+						<div>No Stories Found!</div>
+						<Link to="/interests">Customize Your Interest</Link>
+					</div>
+				)}
 				{state.more ? (
 					<Button
 						text="More"
