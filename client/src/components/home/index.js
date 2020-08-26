@@ -29,9 +29,10 @@ const Home = ({ state, dispatch }) => {
 				) : null}
 			</div>
 			<div className="sidebar">
-				<div className="trending">
-					{Array.isArray(state.trendingStories) &&
-						state.trendingStories.map(
+				{Array.isArray(state.trendingStories) && (
+					<div className="trending">
+						<div className="header">Featured</div>
+						{state.trendingStories.map(
 							(story) =>
 								story && (
 									<Link
@@ -45,7 +46,8 @@ const Home = ({ state, dispatch }) => {
 									</Link>
 								)
 						)}
-				</div>
+					</div>
+				)}
 				<div className="footer"></div>
 			</div>
 		</div>
