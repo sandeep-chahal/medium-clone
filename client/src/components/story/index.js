@@ -8,6 +8,7 @@ import Spinner from "../spinner";
 import BookmarkBtn from "../buttons/bookmark";
 import FollowBtn from "../buttons/follow";
 import ClapBtn from "../buttons/clap";
+import { GetFormattedDate } from "../../utils";
 
 const Story = (props) => {
 	const [story, setStory] = useState(null);
@@ -29,7 +30,7 @@ const Story = (props) => {
 							<Link to={`/user/${story.author._id}`} className="name">
 								{story.author.name}
 							</Link>
-							<div className="date">{story.createdAt}</div>
+							<div className="date">{GetFormattedDate(story.createdAt)}</div>
 						</div>
 					</div>
 					<BookmarkBtn isBM={story.bookmarked} id={story._id} />

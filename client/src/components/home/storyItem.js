@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { GetFormattedDate } from "../../utils";
 
 const StoryItem = ({ story, bookmark }) => {
 	return (
@@ -18,7 +19,7 @@ const StoryItem = ({ story, bookmark }) => {
 						<Link className="author" to={`/user/${story.author._id}`}>
 							{story.author.name}
 						</Link>
-						<div className="date">{story.createdAt}</div>
+						<div className="date">{GetFormattedDate(story.createdAt)}</div>
 					</div>
 					<img
 						onClick={() => bookmark(story._id)}

@@ -5,7 +5,8 @@ import { fetchStories, bookmark } from "../../axios-utils";
 import StoryItem from "./storyItem";
 import Button from "../button/Button";
 import Spinner from "../spinner";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { GetFormattedDate } from "../../utils";
 
 const Home = ({ state, dispatch }) => {
 	useEffect(() => {
@@ -48,7 +49,9 @@ const Home = ({ state, dispatch }) => {
 									>
 										<h3>{story.title}</h3>
 										<div className="summary">{story.summary}</div>
-										<div className="date">{story.createdAt}</div>
+										<div className="date">
+											{GetFormattedDate(story.createdAt)}
+										</div>
 									</Link>
 								)
 						)}
