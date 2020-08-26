@@ -1,7 +1,14 @@
+var fs = require("fs");
 var multer = require("multer");
 const sharp = require("sharp");
 const easyPath = require("../utils/easyPath")(__dirname);
 
+if (!fs.existsSync("public")) {
+	fs.mkdirSync("public");
+}
+if (!fs.existsSync("public/uploads")) {
+	fs.mkdirSync("public/uploads");
+}
 //check if file is image or not
 const fileFilter = (req, file, callback) => {
 	const isValidType = ["image/jpeg", "image/tiff", "image/png"].includes(
