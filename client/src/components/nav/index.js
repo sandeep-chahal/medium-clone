@@ -40,6 +40,9 @@ const Nav = ({ user }) => {
 					</Link>
 					<div className="user-img">
 						<img
+							onError={(ev) =>
+								(ev.target.src = require("../../assets/img/user.png"))
+							}
 							src={`${user.img}-60px.jpeg`}
 							onClick={() => setMenuOpen((prev) => !prev)}
 						/>

@@ -29,7 +29,13 @@ const StoryItem = ({ story, bookmark }) => {
 				</div>
 			</div>
 			<Link to={`/story/${story._id}`}>
-				<img className="img" src={`${story.img}-400px.jpeg`} />
+				<img
+					onError={(ev) =>
+						(ev.target.src = require("../../assets/img/no-image-1.jpg"))
+					}
+					className="img"
+					src={`${story.img}-400px.jpeg`}
+				/>
 			</Link>
 		</article>
 	);

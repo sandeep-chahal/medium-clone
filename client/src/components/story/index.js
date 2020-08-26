@@ -25,7 +25,13 @@ const Story = (props) => {
 				<h1>{story.title}</h1>
 				<div className="about">
 					<div className="author">
-						<img className="author-img" src={`${story.author.img}-80px.jpeg`} />
+						<img
+							onError={(ev) =>
+								(ev.target.src = require("../../assets/img/user.png"))
+							}
+							className="author-img"
+							src={`${story.author.img}-60px.jpeg`}
+						/>
 						<div className="meta">
 							<Link to={`/user/${story.author._id}`} className="name">
 								{story.author.name}
@@ -61,7 +67,12 @@ const Story = (props) => {
 			</div>
 			<div className="line"></div>
 			<div className="footer-author">
-				<img src={`${story.author.img}-300px.jpeg`} />
+				<img
+					onError={(ev) =>
+						(ev.target.src = require("../../assets/img/user.png"))
+					}
+					src={`${story.author.img}-250px.jpeg`}
+				/>
 				<div className="author">
 					<div className="written-by">Written by</div>
 					<Link to={`/user/${story.author._id}`} className="name">

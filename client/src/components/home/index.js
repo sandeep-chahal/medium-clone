@@ -10,7 +10,7 @@ import { GetFormattedDate } from "../../utils";
 
 const Home = ({ state, dispatch }) => {
 	useEffect(() => {
-		if (!state.stories.length)
+		if (state.stories || !state.stories.length)
 			fetchStories(state.page, dispatch, !state.trendingStories.length);
 	}, []);
 
@@ -18,7 +18,7 @@ const Home = ({ state, dispatch }) => {
 	return (
 		<div className="home">
 			<div className="feed-stories">
-				{Array.isArray(state.stories) ? (
+				{Array.isArray(state.stories) && state.stories.length ? (
 					state.stories.map((story) => (
 						<StoryItem story={story} key={story._id} bookmark={bookmark} />
 					))

@@ -25,7 +25,12 @@ const UserMenu = ({ user }) => {
 			<div className="notch"></div>
 			<div className="menu">
 				<div className="user">
-					<img src={`${user.img}-250px.jpeg`} />
+					<img
+						onError={(ev) =>
+							(ev.target.src = require("../../../assets/img/user.png"))
+						}
+						src={`${user.img}-250px.jpeg`}
+					/>
 					<h4>{user.name}</h4>
 				</div>
 				<Link className="membership" to="membership">
