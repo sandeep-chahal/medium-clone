@@ -5,6 +5,8 @@ import { fetchBookmarkStories } from "../../axios-utils";
 import { Context } from "../../store/store";
 import Spinner from "../spinner";
 
+import { GetFormattedDate } from "../../utils";
+
 const Bookmark = () => {
 	const [stories, setStories] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -44,7 +46,7 @@ const Bookmark = () => {
 						>
 							<h2>{story.title}</h2>
 							<p className="summary">{story.summary}</p>
-							<p className="date">{story.createdAt}</p>
+							<p className="date">{GetFormattedDate(story.createdAt)}</p>
 						</Link>
 					))}
 			</div>

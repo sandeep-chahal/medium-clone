@@ -5,6 +5,7 @@ import { getUserStories } from "../../axios-utils";
 import { Context } from "../../store/store";
 import FollowBtn from "../buttons/follow";
 import Spinner from "../spinner";
+import { GetFormattedDate } from "../../utils";
 
 const Stories = () => {
 	const [stories, setStries] = useState([]);
@@ -54,18 +55,23 @@ const Stories = () => {
 				</div>
 			)}
 			<div className="list">
-				{Array.isArray(stories) &&
-					stories.map((story) => (
-						<Link
-							to={`/story/${story._id}`}
-							key={story._id}
-							className="story-item"
-						>
-							<h2>{story.title}</h2>
-							<p className="summary">{story.summary}</p>
-							<p className="date">{story.createdAt}</p>
-						</Link>
-					))}
+				{Array.isArray(stories) && stories.length ? (
+					stories.map((story) =>
+						story._id ? (
+							<Link
+								to={`/story/${story._id}`}
+								key={story._id}
+								className="story-item"
+							>
+								<h2>{story.title}</h2>
+								<p className="summary">{story.summary}</p>
+								<p className="date">{GetFormattedDate(story.createdAt)}</p>
+							</Link>
+						) : null
+					)
+				) : (
+					<div>You haven't wriiten any stories yet!</div>
+				)}
 			</div>
 		</div>
 	);
