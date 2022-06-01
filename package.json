@@ -29,7 +29,7 @@
 		"react-hook-form": "^5.7.2",
 		"react-medium-editor": "^1.8.1",
 		"react-spring": "^8.0.27",
-		"sharp": "^0.25.4"
+		"sharp": "^0.30.5"
 	},
 	"devDependencies": {
 		"concurrently": "^4.1.2",
